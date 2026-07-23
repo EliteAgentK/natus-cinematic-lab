@@ -167,19 +167,19 @@ function ParticleField() {
 function IntroLoader() {
   const [gone, setGone] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setGone(true), 2600);
+    const t = setTimeout(() => setGone(true), 2400);
     return () => clearTimeout(t);
   }, []);
   if (gone) return null;
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
-      style={{ animation: "intro-fade-out 0.8s ease 2.2s forwards" }}
+      style={{ animation: "intro-fade-out 0.8s ease 2.0s forwards" }}
     >
       <img
         src={logoAsset.url}
         alt="Natus Lab"
-        className="h-64 w-64 md:h-80 md:w-80"
+        className="h-40 w-40 md:h-52 md:w-52"
         style={{ animation: "logo-glow 1.8s cubic-bezier(.2,.7,.2,1) forwards" }}
       />
     </div>
