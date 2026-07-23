@@ -447,29 +447,65 @@ function Hero() {
           </div>
         </div>
 
-        {/* Logo mark, softly floating */}
+        {/* Real-work montage: layered browser + phone frames of live projects */}
         <div
-          className="relative mx-auto hidden aspect-square w-full max-w-md items-center justify-center lg:flex"
-          style={{ perspective: "1200px" }}
+          className="relative mx-auto hidden aspect-[4/5] w-full max-w-md lg:block"
+          style={{ perspective: "1400px" }}
         >
+          {/* Back browser: Invesmed */}
           <div
-            className="absolute inset-0 rounded-full"
+            className="absolute right-0 top-0 w-[92%] overflow-hidden rounded-xl border shadow-[0_50px_100px_-20px_oklch(0_0_0/0.7),0_0_60px_-10px_oklch(0.66_0.14_45/0.22)]"
             style={{
-              background: "radial-gradient(circle, oklch(0.66 0.14 45 / 0.25), transparent 65%)",
-              filter: "blur(30px)",
-              animation: "pulseGlow 6s ease-in-out infinite",
+              borderColor: "oklch(0.48 0.09 50 / 0.4)",
+              transform: `rotateX(${8 - tilt.x}deg) rotateY(${-12 + tilt.y}deg)`,
+              transformStyle: "preserve-3d",
+              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
+              animation: "floatY 9s ease-in-out infinite",
             }}
-          />
-          <img
-            src={logoAsset.url}
-            alt="Natus Lab mark"
-            className="relative z-10 w-4/5 drop-shadow-[0_20px_60px_oklch(0.66_0.14_45_/_0.35)]"
+          >
+            <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
+              <span className="ml-3 text-[9px] tracking-widest text-muted-foreground">invesmed.co.za</span>
+            </div>
+            <img src={invesmed1.url} alt="Invesmed" className="block w-full" />
+          </div>
+
+          {/* Middle browser: Inves-STEM */}
+          <div
+            className="absolute left-0 top-[38%] w-[78%] overflow-hidden rounded-xl border shadow-[0_40px_80px_-20px_oklch(0_0_0/0.7),0_0_50px_-10px_oklch(0.66_0.14_45/0.25)]"
             style={{
-              transform: `rotateX(${-tilt.x * 0.3}deg) rotateY(${tilt.y * 0.3}deg)`,
+              borderColor: "oklch(0.66 0.14 45 / 0.5)",
+              transform: `rotateX(${-4 + tilt.x}deg) rotateY(${8 - tilt.y}deg) rotateZ(-3deg)`,
+              transformStyle: "preserve-3d",
+              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
+              animation: "floatY 7s ease-in-out infinite reverse",
+            }}
+          >
+            <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
+              <span className="ml-3 text-[9px] tracking-widest text-muted-foreground">inves-stem.co</span>
+            </div>
+            <img src={invesstem1.url} alt="Inves-STEM" className="block w-full" />
+          </div>
+
+          {/* Front card: Pitch Partners pricing detail */}
+          <div
+            className="absolute bottom-0 right-4 w-[52%] overflow-hidden rounded-xl border shadow-[0_40px_60px_-15px_oklch(0_0_0/0.75)]"
+            style={{
+              borderColor: "oklch(0.66 0.14 45 / 0.55)",
+              transform: `rotateX(${-6 + tilt.x * 1.2}deg) rotateY(${-6 - tilt.y}deg) rotateZ(4deg)`,
+              transformStyle: "preserve-3d",
               transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
               animation: "floatY 8s ease-in-out infinite",
+              animationDelay: "0.4s",
             }}
-          />
+          >
+            <img src={pitchpartners2.url} alt="Pitch Partners" className="block w-full" />
+          </div>
         </div>
       </div>
 
