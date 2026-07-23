@@ -786,7 +786,7 @@ function NatusLab() {
             <span style={{ color: "var(--copper)" }}>exceptional?</span>
           </h2>
           <p className="reveal mx-auto mt-6 max-w-lg text-base text-muted-foreground md:text-lg">
-            Every project starts with a conversation — message me for pricing and scope.
+            Every project starts with a conversation — message us for pricing and scope.
           </p>
           <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
