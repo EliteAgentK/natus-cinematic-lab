@@ -448,9 +448,8 @@ function Hero() {
             </a>
           </div>
 
-          <div className="reveal mt-14 grid max-w-md grid-cols-3 gap-6 border-t pt-6" style={{ borderColor: "oklch(0.48 0.09 50 / 0.3)" }}>
+          <div className="reveal mt-14 grid max-w-sm grid-cols-2 gap-6 border-t pt-6" style={{ borderColor: "oklch(0.48 0.09 50 / 0.3)" }}>
             {[
-              ["By", "Invitation"],
               ["Est.", "MMXXVI"],
               ["Craft", "Studio"],
             ].map(([k, v]) => (
@@ -462,64 +461,131 @@ function Hero() {
           </div>
         </div>
 
-        {/* Real-work montage: layered browser + phone frames of live projects */}
+        {/* Studio console: cinematic dev-themed visual */}
         <div
           className="relative mx-auto hidden aspect-[4/5] w-full max-w-md lg:block"
-          style={{ perspective: "1400px" }}
+          style={{ perspective: "1600px" }}
         >
-          {/* Back browser: Invesmed */}
+          {/* Orbiting dotted rings echoing the logo */}
           <div
-            className="absolute right-0 top-0 w-[92%] overflow-hidden rounded-xl border shadow-[0_50px_100px_-20px_oklch(0_0_0/0.7),0_0_60px_-10px_oklch(0.66_0.14_45/0.22)]"
+            className="absolute left-1/2 top-1/2 rounded-full"
             style={{
-              borderColor: "oklch(0.48 0.09 50 / 0.4)",
-              transform: `rotateX(${8 - tilt.x}deg) rotateY(${-12 + tilt.y}deg)`,
+              width: "115%",
+              aspectRatio: "1",
+              border: "1px dashed oklch(0.66 0.14 45 / 0.28)",
+              transform: "translate(-50%, -50%)",
+              animation: "spinSlow 60s linear infinite",
+            }}
+          />
+          <div
+            className="absolute left-1/2 top-1/2 rounded-full"
+            style={{
+              width: "82%",
+              aspectRatio: "1",
+              border: "1px dashed oklch(0.82 0.13 70 / 0.22)",
+              transform: "translate(-50%, -50%)",
+              animation: "spinSlow 90s linear infinite reverse",
+            }}
+          />
+          {/* Copper glow core */}
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+            style={{
+              width: "55%",
+              aspectRatio: "1",
+              background: "radial-gradient(circle, oklch(0.66 0.14 45 / 0.35), transparent 70%)",
+              animation: "pulseGlow 5s ease-in-out infinite",
+            }}
+          />
+
+          {/* Main IDE panel */}
+          <div
+            className="absolute left-0 top-4 w-[92%] overflow-hidden rounded-2xl border shadow-[0_60px_120px_-25px_oklch(0_0_0/0.75),0_0_80px_-10px_oklch(0.66_0.14_45/0.28)]"
+            style={{
+              borderColor: "oklch(0.66 0.14 45 / 0.45)",
+              background: "linear-gradient(160deg, oklch(0.11 0.008 40 / 0.92), oklch(0.08 0.006 40 / 0.95))",
+              backdropFilter: "blur(20px)",
+              transform: `rotateX(${8 - tilt.x}deg) rotateY(${-14 + tilt.y}deg)`,
               transformStyle: "preserve-3d",
               transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
               animation: "floatY 9s ease-in-out infinite",
             }}
           >
-            <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
-              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
-              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
-              <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
-              <span className="ml-3 text-[9px] tracking-widest text-muted-foreground">invesmed.co.za</span>
+            <div className="flex items-center gap-1.5 border-b px-4 py-2.5" style={{ borderColor: "oklch(0.48 0.09 50 / 0.3)", background: "oklch(0.09 0.006 40 / 0.7)" }}>
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: "oklch(0.62 0.14 45)" }} />
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: "oklch(0.55 0.09 60)" }} />
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: "oklch(0.4 0.03 50)" }} />
+              <span className="ml-4 text-[9px] tracking-[0.3em] uppercase text-muted-foreground">natus.studio · index.tsx</span>
             </div>
-            <img src={invesmed1.url} alt="Invesmed" className="block w-full" />
+            <div className="relative p-5 text-[11px] leading-[1.9]" style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+              {[
+                <><span style={{ color: "oklch(0.55 0.05 60)" }}>{"// built to matter."}</span></>,
+                <><span style={{ color: "oklch(0.62 0.14 45)" }}>const</span> <span style={{ color: "oklch(0.85 0.05 70)" }}>studio</span> = <span style={{ color: "oklch(0.62 0.14 45)" }}>createNatus</span>({"{"}</>,
+                <>  <span style={{ color: "oklch(0.82 0.13 70)" }}>craft</span>: <span style={{ color: "oklch(0.78 0.08 60)" }}>"private"</span>,</>,
+                <>  <span style={{ color: "oklch(0.82 0.13 70)" }}>tone</span>: <span style={{ color: "oklch(0.78 0.08 60)" }}>"cinematic"</span>,</>,
+                <>  <span style={{ color: "oklch(0.82 0.13 70)" }}>build</span>: [<span style={{ color: "oklch(0.78 0.08 60)" }}>"web"</span>, <span style={{ color: "oklch(0.78 0.08 60)" }}>"saas"</span>, <span style={{ color: "oklch(0.78 0.08 60)" }}>"apps"</span>],</>,
+                <>{"});"}</>,
+                <>&nbsp;</>,
+                <><span style={{ color: "oklch(0.62 0.14 45)" }}>await</span> <span style={{ color: "oklch(0.85 0.05 70)" }}>studio</span>.<span style={{ color: "oklch(0.82 0.13 70)" }}>ship</span>();</>,
+              ].map((c, i) => (
+                <div key={i} className="flex gap-4 opacity-0" style={{ animation: `codeIn 0.5s ease-out ${0.4 + i * 0.15}s forwards` }}>
+                  <span className="w-4 text-right" style={{ color: "oklch(0.4 0.03 50)" }}>{String(i + 1).padStart(2, "0")}</span>
+                  <span className="whitespace-pre" style={{ color: "oklch(0.88 0.02 60)" }}>{c}</span>
+                </div>
+              ))}
+              <div className="flex gap-4">
+                <span className="w-4" />
+                <span className="inline-block h-3 w-1.5" style={{ background: "var(--copper)", animation: "blink 1s steps(2) infinite", boxShadow: "0 0 10px var(--copper)" }} />
+              </div>
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background: "linear-gradient(180deg, transparent 0%, oklch(0.66 0.14 45 / 0.06) 50%, transparent 100%)",
+                  backgroundSize: "100% 200%",
+                  animation: "shimmer 6s ease-in-out infinite",
+                }}
+              />
+            </div>
           </div>
 
-          {/* Middle browser: Inves-STEM */}
+          {/* Terminal card */}
           <div
-            className="absolute left-0 top-[38%] w-[78%] overflow-hidden rounded-xl border shadow-[0_40px_80px_-20px_oklch(0_0_0/0.7),0_0_50px_-10px_oklch(0.66_0.14_45/0.25)]"
+            className="absolute bottom-0 right-0 w-[58%] overflow-hidden rounded-xl border shadow-[0_40px_60px_-15px_oklch(0_0_0/0.8)]"
             style={{
               borderColor: "oklch(0.66 0.14 45 / 0.5)",
-              transform: `rotateX(${-4 + tilt.x}deg) rotateY(${8 - tilt.y}deg) rotateZ(-3deg)`,
-              transformStyle: "preserve-3d",
-              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
-              animation: "floatY 7s ease-in-out infinite reverse",
-            }}
-          >
-            <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
-              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
-              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
-              <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
-              <span className="ml-3 text-[9px] tracking-widest text-muted-foreground">inves-stem.co</span>
-            </div>
-            <img src={invesstem1.url} alt="Inves-STEM" className="block w-full" />
-          </div>
-
-          {/* Front card: Pitch Partners pricing detail */}
-          <div
-            className="absolute bottom-0 right-4 w-[52%] overflow-hidden rounded-xl border shadow-[0_40px_60px_-15px_oklch(0_0_0/0.75)]"
-            style={{
-              borderColor: "oklch(0.66 0.14 45 / 0.55)",
-              transform: `rotateX(${-6 + tilt.x * 1.2}deg) rotateY(${-6 - tilt.y}deg) rotateZ(4deg)`,
+              background: "oklch(0.07 0.005 40 / 0.95)",
+              backdropFilter: "blur(16px)",
+              transform: `rotateX(${-6 + tilt.x * 1.2}deg) rotateY(${-4 - tilt.y}deg) rotateZ(3deg)`,
               transformStyle: "preserve-3d",
               transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
               animation: "floatY 8s ease-in-out infinite",
               animationDelay: "0.4s",
             }}
           >
-            <img src={pitchpartners2.url} alt="Pitch Partners" className="block w-full" />
+            <div className="border-b px-3 py-1.5 text-[8px] tracking-[0.3em] uppercase" style={{ borderColor: "oklch(0.48 0.09 50 / 0.3)", color: "oklch(0.55 0.05 60)" }}>
+              ~/natus — zsh
+            </div>
+            <div className="p-3 text-[10px] leading-[1.7]" style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+              <div style={{ color: "oklch(0.82 0.13 70)" }}>› <span style={{ color: "oklch(0.88 0.02 60)" }}>natus deploy --prod</span></div>
+              <div style={{ color: "oklch(0.55 0.05 60)" }}>  ▸ compiling motion</div>
+              <div style={{ color: "oklch(0.55 0.05 60)" }}>  ▸ optimizing assets</div>
+              <div style={{ color: "oklch(0.62 0.14 45)" }}>  ✓ shipped in 3.2s</div>
+            </div>
+          </div>
+
+          {/* Floating stat chip */}
+          <div
+            className="absolute -left-2 top-[42%] rounded-full border px-3 py-1.5 backdrop-blur-md"
+            style={{
+              borderColor: "oklch(0.66 0.14 45 / 0.5)",
+              background: "oklch(0.09 0.006 40 / 0.8)",
+              animation: "floatY 6s ease-in-out infinite reverse",
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--copper)", boxShadow: "0 0 8px var(--copper)" }} />
+              <span className="text-[9px] uppercase tracking-[0.28em]" style={{ color: "oklch(0.85 0.05 70)" }}>Live · 60fps</span>
+            </div>
           </div>
         </div>
       </div>
@@ -535,6 +601,10 @@ function Hero() {
       <style>{`
         @keyframes floatY { 0%,100% { translate: 0 0 } 50% { translate: 0 -14px } }
         @keyframes pulseGlow { 0%,100% { opacity: 0.55 } 50% { opacity: 0.9 } }
+        @keyframes spinSlow { to { transform: translate(-50%, -50%) rotate(360deg) } }
+        @keyframes codeIn { from { opacity: 0; transform: translateX(-8px) } to { opacity: 1; transform: translateX(0) } }
+        @keyframes blink { 50% { opacity: 0 } }
+        @keyframes shimmer { 0%,100% { background-position: 0 -100% } 50% { background-position: 0 100% } }
       `}</style>
     </section>
   );
