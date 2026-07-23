@@ -708,7 +708,7 @@ function NatusLab() {
 
           <div className="flex flex-col gap-16">
             {PROJECTS.map((p, i) => (
-              <ProjectRow key={p.name} p={p} index={i} />
+              <ProjectCard key={p.name} p={p} index={i} />
             ))}
           </div>
         </div>
