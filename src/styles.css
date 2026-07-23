@@ -62,26 +62,34 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --radius: 0.5rem;
+  /* Natus Lab — private digital studio */
+  --background: oklch(0.14 0.008 40);         /* deep espresso black */
+  --foreground: oklch(0.95 0.015 75);         /* ivory/pearl */
+  --card: oklch(0.17 0.01 40);                /* charcoal panel */
+  --card-foreground: oklch(0.95 0.015 75);
+  --popover: oklch(0.15 0.008 40);
+  --popover-foreground: oklch(0.95 0.015 75);
+  --primary: oklch(0.66 0.14 45);             /* copper */
+  --primary-foreground: oklch(0.14 0.008 40);
+  --secondary: oklch(0.22 0.015 40);
+  --secondary-foreground: oklch(0.95 0.015 75);
+  --muted: oklch(0.2 0.012 40);
+  --muted-foreground: oklch(0.68 0.02 55);    /* muted stone grey */
+  --accent: oklch(0.72 0.13 55);              /* burnt orange / bronze */
+  --accent-foreground: oklch(0.14 0.008 40);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.32 0.05 50 / 45%);        /* bronze border */
+  --input: oklch(0.28 0.03 50 / 60%);
+  --ring: oklch(0.66 0.14 45);
+  --copper: oklch(0.66 0.14 45);
+  --copper-bright: oklch(0.78 0.14 55);
+  --gold: oklch(0.85 0.12 85);
+  --bronze: oklch(0.48 0.09 50);
+  --espresso: oklch(0.11 0.008 40);
+  --font-serif: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +148,77 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 20% 10%, oklch(0.66 0.14 45 / 0.08), transparent 55%),
+      radial-gradient(circle at 85% 80%, oklch(0.48 0.09 50 / 0.07), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.01em; }
+  .label { font-family: var(--font-sans); letter-spacing: 0.28em; text-transform: uppercase; font-size: 0.72rem; color: var(--muted-foreground); }
+  .wordmark { font-family: var(--font-sans); letter-spacing: 0.36em; text-transform: uppercase; font-weight: 500; }
+  .copper-text { color: var(--copper); }
+  .gold-text { color: var(--gold); }
+  .glass-panel {
+    background: linear-gradient(180deg, oklch(0.18 0.012 40 / 0.75), oklch(0.13 0.008 40 / 0.85));
+    border: 1px solid oklch(0.48 0.09 50 / 0.35);
+    backdrop-filter: blur(14px) saturate(120%);
+    transition: transform 0.5s cubic-bezier(.2,.7,.2,1), box-shadow 0.5s, border-color 0.5s;
+  }
+  .glass-panel:hover {
+    transform: translateY(-4px);
+    border-color: oklch(0.66 0.14 45 / 0.7);
+    box-shadow: 0 20px 60px -20px oklch(0.66 0.14 45 / 0.35), 0 0 0 1px oklch(0.66 0.14 45 / 0.2) inset;
+  }
+  .btn-copper {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, oklch(0.55 0.13 45), oklch(0.7 0.15 55));
+    color: oklch(0.12 0.008 40);
+    border: 1px solid oklch(0.7 0.14 50 / 0.7);
+    box-shadow: 0 8px 30px -10px oklch(0.66 0.14 45 / 0.55), inset 0 1px 0 oklch(1 0 0 / 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn-copper:hover { transform: translateY(-1px); box-shadow: 0 14px 40px -10px oklch(0.66 0.14 45 / 0.7); }
+  .btn-copper::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 30%, oklch(1 0 0 / 0.35) 50%, transparent 70%);
+    transform: translateX(-120%); transition: transform 0.8s;
+  }
+  .btn-copper:hover::after { transform: translateX(120%); }
+  .btn-ghost-copper {
+    border: 1px solid oklch(0.66 0.14 45 / 0.5);
+    color: var(--copper);
+    background: transparent;
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+  }
+  .btn-ghost-copper:hover {
+    background: oklch(0.66 0.14 45 / 0.08);
+    border-color: var(--copper);
+    color: var(--copper-bright);
+  }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .hover-lift { transition: transform 0.4s, box-shadow 0.4s; }
+  .hover-lift:hover { transform: translateY(-3px); }
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ""; position: absolute; left: 0; bottom: -4px; height: 1px; width: 100%;
+    background: var(--copper); transform: scaleX(0); transform-origin: right;
+    transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .nav-link:hover { color: var(--copper); }
+  .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+  @keyframes logo-glow {
+    0% { opacity: 0; filter: brightness(0.4) blur(6px); transform: scale(0.9); }
+    50% { opacity: 1; filter: brightness(1.4) blur(0); transform: scale(1.02); }
+    100% { opacity: 1; filter: brightness(1) blur(0); transform: scale(1); }
+  }
+  @keyframes intro-fade-out {
+    to { opacity: 0; visibility: hidden; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
   }
 }
