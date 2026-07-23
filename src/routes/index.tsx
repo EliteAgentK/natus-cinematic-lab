@@ -2,6 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail } from "lucide-react";
 import logoAsset from "../assets/natus-lab-logo.png.asset.json";
+import heroAsset from "../assets/hero-atmosphere.jpg.asset.json";
+import project1Asset from "../assets/project-1.jpg.asset.json";
+import project2Asset from "../assets/project-2.jpg.asset.json";
+import project3Asset from "../assets/project-3.jpg.asset.json";
+import project4Asset from "../assets/project-4.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: NatusLab,
@@ -19,30 +24,34 @@ export const Route = createFileRoute("/")({
 const PROJECTS = [
   {
     name: "Aurelia Studio",
-    type: "Website",
-    line: "Cinematic single-page identity for a boutique creative studio.",
-    logo: "https://api.dicebear.com/9.x/initials/svg?seed=Aurelia&backgroundType=gradientLinear&backgroundColor=1a1310,2a1b13&textColor=d99a5b&fontWeight=500",
+    type: "Fashion · Website",
+    line: "Cinematic seasonal identity for a boutique fashion house.",
+    image: project1Asset.url,
+    year: "2025",
     href: "#",
   },
   {
-    name: "Meridian Group",
-    type: "Corporate Platform",
-    line: "Internal operations platform for a multi-entity holding.",
-    logo: "https://api.dicebear.com/9.x/initials/svg?seed=Meridian&backgroundType=gradientLinear&backgroundColor=1a1310,2a1b13&textColor=d99a5b&fontWeight=500",
+    name: "Aurelian Capital",
+    type: "Finance · Platform",
+    line: "Private portfolio platform for a global capital firm.",
+    image: project2Asset.url,
+    year: "2025",
     href: "#",
   },
   {
-    name: "Noir Atelier",
-    type: "E-Commerce",
-    line: "Made-to-order boutique with a private client portal.",
-    logo: "https://api.dicebear.com/9.x/initials/svg?seed=Noir&backgroundType=gradientLinear&backgroundColor=1a1310,2a1b13&textColor=d99a5b&fontWeight=500",
+    name: "Velmora",
+    type: "Luxury · E-Commerce",
+    line: "Limited-edition timepieces sold through a private storefront.",
+    image: project3Asset.url,
+    year: "2024",
     href: "#",
   },
   {
-    name: "Kite & Co.",
-    type: "App",
-    line: "Native mobile app for a members-only concierge service.",
-    logo: "https://api.dicebear.com/9.x/initials/svg?seed=Kite&backgroundType=gradientLinear&backgroundColor=1a1310,2a1b13&textColor=d99a5b&fontWeight=500",
+    name: "Luxe Concierge",
+    type: "Hospitality · App",
+    line: "Members-only mobile concierge for an invitation-only club.",
+    image: project4Asset.url,
+    year: "2024",
     href: "#",
   },
 ];
