@@ -433,10 +433,10 @@ function Hero() {
             </span>
           </h1>
 
-          <p className="reveal mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A quiet studio designing websites, platforms, e-commerce and apps
-            for brands that refuse to look like anyone else. Born from nature.
-            Built for transformation.
+          <p className="reveal mt-8 max-w-xl text-base leading-relaxed text-foreground md:text-lg">
+            A quiet studio designing websites, SaaS platforms, e-commerce stores
+            and mobile apps for brands that refuse to look like anyone else.
+            Born from nature. Built for transformation.
           </p>
 
           <div className="reveal mt-10 flex flex-wrap items-center gap-4">
