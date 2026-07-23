@@ -570,6 +570,209 @@ function Marquee() {
 }
 
 /* --------- Main page --------- */
+/* --------- Project row (refined, compact) --------- */
+function ProjectRow({
+  p,
+  index,
+}: {
+  p: (typeof PROJECTS)[number];
+  index: number;
+}) {
+  const [active, setActive] = useState(0);
+  const reversed = index % 2 === 1;
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  return (
+    <div
+      className={`reveal group grid grid-cols-1 items-center gap-10 lg:grid-cols-12 ${
+        reversed ? "lg:[&>*:first-child]:order-2" : ""
+      }`}
+    >
+      {/* Preview — compact, glass framed */}
+      <div className="lg:col-span-7">
+        <div
+          ref={frameRef}
+          onMouseMove={(e) => {
+            const r = frameRef.current?.getBoundingClientRect();
+            if (!r) return;
+            setTilt({
+              x: ((e.clientY - r.top) / r.height - 0.5) * -4,
+              y: ((e.clientX - r.left) / r.width - 0.5) * 6,
+            });
+          }}
+          onMouseLeave={() => setTilt({ x: 0, y: 0 })}
+          className="relative mx-auto w-full max-w-[560px]"
+          style={{ perspective: "1400px" }}
+        >
+          {/* Ambient copper bloom */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-8 opacity-60 blur-2xl transition duration-700 group-hover:opacity-100"
+            style={{
+              background:
+                "radial-gradient(circle at 30% 30%, oklch(0.66 0.14 45 / 0.28), transparent 60%), radial-gradient(circle at 80% 80%, oklch(0.48 0.09 50 / 0.25), transparent 65%)",
+            }}
+          />
+
+          <div
+            className="glass-panel relative overflow-hidden rounded-2xl p-3"
+            style={{
+              transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+              transformStyle: "preserve-3d",
+              transition: "transform 0.6s cubic-bezier(.2,.7,.2,1)",
+            }}
+          >
+            <div
+              className="overflow-hidden rounded-lg border shadow-[0_30px_60px_-25px_oklch(0_0_0/0.8)]"
+              style={{ borderColor: "oklch(0.48 0.09 50 / 0.4)" }}
+            >
+              {/* Browser chrome */}
+              <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
+                <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
+                <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
+                <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
+                <span className="ml-3 text-[10px] tracking-widest text-muted-foreground">
+                  {p.domain}
+                </span>
+                {p.live === false && (
+                  <span
+                    className="ml-auto flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[9px] uppercase tracking-[0.2em]"
+                    style={{
+                      borderColor: "oklch(0.66 0.14 45 / 0.55)",
+                      color: "var(--copper)",
+                      background: "oklch(0.1 0.008 40 / 0.7)",
+                    }}
+                  >
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{
+                        background: "var(--copper)",
+                        boxShadow: "0 0 10px var(--copper)",
+                        animation: "pulseGlow 1.8s ease-in-out infinite",
+                      }}
+                    />
+                    In Progress
+                  </span>
+                )}
+              </div>
+
+              {/* Cross-fade image stack */}
+              <div className="relative aspect-[16/10] w-full bg-background">
+                {p.images.map((src, idx) => (
+                  <img
+                    key={idx}
+                    src={src}
+                    alt={`${p.name} — ${idx + 1}`}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-700 ease-out"
+                    style={{ opacity: active === idx ? 1 : 0 }}
+                  />
+                ))}
+                {/* Copper sheen on hover */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 50% 60%, oklch(0.66 0.14 45 / 0.18), transparent 65%)",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Thumbnails */}
+          {p.images.length > 1 && (
+            <div className="mt-4 flex items-center justify-center gap-2">
+              {p.images.map((src, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onMouseEnter={() => setActive(idx)}
+                  onFocus={() => setActive(idx)}
+                  onClick={() => setActive(idx)}
+                  aria-label={`View ${p.name} shot ${idx + 1}`}
+                  className="relative h-12 w-20 overflow-hidden rounded-md border transition"
+                  style={{
+                    borderColor:
+                      active === idx
+                        ? "oklch(0.66 0.14 45 / 0.9)"
+                        : "oklch(0.48 0.09 50 / 0.35)",
+                    boxShadow:
+                      active === idx
+                        ? "0 0 20px -4px oklch(0.66 0.14 45 / 0.55)"
+                        : "none",
+                  }}
+                >
+                  <img
+                    src={src}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    className="block h-full w-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Copy */}
+      <div className="lg:col-span-5">
+        <div className="mb-4 flex items-center justify-between">
+          <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
+          <span className="label">{p.year}</span>
+        </div>
+        <h3 className="mb-4 text-3xl md:text-4xl">{p.name}</h3>
+        <p className="mb-6 text-sm leading-relaxed text-muted-foreground md:text-base">{p.line}</p>
+
+        {p.status && (
+          <div
+            className="mb-6 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.24em]"
+            style={{
+              borderColor: "oklch(0.66 0.14 45 / 0.55)",
+              color: "var(--copper)",
+              background: "oklch(0.12 0.008 40 / 0.6)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: "var(--copper)", boxShadow: "0 0 10px var(--copper)" }}
+            />
+            {p.status}
+          </div>
+        )}
+
+        {p.live ? (
+          <a
+            href={p.href}
+            target="_blank"
+            rel="noreferrer"
+            className="group/link inline-flex items-center gap-3 rounded-full border px-5 py-2.5 transition hover:-translate-y-0.5"
+            style={{
+              borderColor: "oklch(0.66 0.14 45 / 0.5)",
+              background: "oklch(0.1 0.008 40 / 0.5)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <span className="label" style={{ color: "var(--copper)" }}>Visit live site</span>
+            <ArrowUpRight
+              className="h-4 w-4 transition group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+              style={{ color: "var(--copper)" }}
+            />
+          </a>
+        ) : (
+          <span className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+            Preview by request
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function NatusLab() {
   useReveal();
 
