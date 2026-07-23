@@ -607,16 +607,62 @@ function NatusLab() {
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map(({ icon: Icon, title, line }) => (
-              <div key={title} className="glass-panel reveal group relative rounded-2xl p-7">
-                <div
-                  className="mb-8 flex h-11 w-11 items-center justify-center rounded-full border"
-                  style={{ borderColor: "oklch(0.66 0.14 45 / 0.55)" }}
-                >
-                  <Icon className="h-5 w-5" strokeWidth={1.25} style={{ color: "var(--copper)" }} />
+            {services.map(({ icon: Icon, title, line, image }, idx) => (
+              <div
+                key={title}
+                className="glass-panel reveal group relative overflow-hidden rounded-2xl"
+                style={{ transitionDelay: `${idx * 80}ms` }}
+              >
+                {/* Ambient image layer */}
+                <div className="relative h-44 w-full overflow-hidden">
+                  <img
+                    src={image}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover opacity-70 transition duration-[1400ms] ease-out group-hover:scale-110 group-hover:opacity-100"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, oklch(0.11 0.008 40 / 0.15) 0%, oklch(0.13 0.008 40 / 0.55) 55%, oklch(0.15 0.008 40 / 0.95) 100%)",
+                    }}
+                  />
+                  {/* Sweep shimmer */}
+                  <div
+                    className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 opacity-0 transition duration-700 group-hover:left-full group-hover:opacity-100"
+                    style={{
+                      background:
+                        "linear-gradient(120deg, transparent 0%, oklch(1 0 0 / 0.18) 50%, transparent 100%)",
+                    }}
+                  />
                 </div>
-                <h3 className="mb-2 text-2xl">{title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{line}</p>
+
+                {/* Content */}
+                <div className="relative -mt-8 p-7">
+                  <div
+                    className="mb-6 flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-md"
+                    style={{
+                      borderColor: "oklch(0.66 0.14 45 / 0.7)",
+                      background: "oklch(0.1 0.008 40 / 0.75)",
+                      boxShadow: "0 8px 30px -10px oklch(0.66 0.14 45 / 0.6)",
+                    }}
+                  >
+                    <Icon className="h-5 w-5" strokeWidth={1.25} style={{ color: "var(--copper)" }} />
+                  </div>
+                  <h3 className="mb-2 text-2xl">{title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{line}</p>
+                </div>
+
+                {/* Hover copper glow */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 50% 0%, oklch(0.66 0.14 45 / 0.25), transparent 60%)",
+                  }}
+                />
               </div>
             ))}
           </div>
