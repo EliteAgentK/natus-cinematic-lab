@@ -621,48 +621,85 @@ function NatusLab() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {PROJECTS.map((p, i) => (
-              <a
-                key={p.name}
-                href={p.href}
-                target="_blank"
-                rel="noreferrer"
-                className="reveal group relative block overflow-hidden rounded-2xl border transition duration-500 hover:-translate-y-1"
-                style={{ borderColor: "oklch(0.48 0.09 50 / 0.4)" }}
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-black">
-                  <img
-                    src={p.image}
-                    alt={`${p.name} — ${p.type}`}
-                    loading={i < 2 ? "eager" : "lazy"}
-                    className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                  <div
-                    className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
-                    style={{ background: "radial-gradient(circle at 50% 65%, oklch(0.66 0.14 45 / 0.22), transparent 65%)" }}
-                  />
-                  <div
-                    className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition group-hover:-translate-y-1 group-hover:translate-x-1"
-                    style={{ borderColor: "oklch(0.66 0.14 45 / 0.6)", background: "oklch(0.1 0.008 40 / 0.55)" }}
-                  >
-                    <ArrowUpRight className="h-4 w-4" style={{ color: "var(--copper)" }} />
+          <div className="flex flex-col gap-24">
+            {PROJECTS.map((p, i) => {
+              const reversed = i % 2 === 1;
+              return (
+                <a
+                  key={p.name}
+                  href={p.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`reveal group grid grid-cols-1 items-center gap-10 lg:grid-cols-12 ${
+                    reversed ? "lg:[&>*:first-child]:order-2" : ""
+                  }`}
+                >
+                  {/* Image reel: primary + secondary tiles */}
+                  <div className="relative lg:col-span-8">
+                    <div
+                      className="relative overflow-hidden rounded-2xl border shadow-[0_40px_80px_-30px_oklch(0_0_0/0.8)] transition duration-700 group-hover:-translate-y-1"
+                      style={{ borderColor: "oklch(0.48 0.09 50 / 0.4)" }}
+                    >
+                      <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
+                        <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
+                        <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
+                        <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
+                        <span className="ml-3 text-[10px] tracking-widest text-muted-foreground">
+                          {p.href.replace(/^https?:\/\//, "") || `${p.name.toLowerCase().replace(/\s+/g, "")}.co`}
+                        </span>
+                      </div>
+                      <img
+                        src={p.images[0]}
+                        alt={`${p.name} — ${p.type}`}
+                        loading={i === 0 ? "eager" : "lazy"}
+                        className="block w-full transition-transform duration-[1400ms] ease-out group-hover:scale-[1.02]"
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
+                        style={{ background: "radial-gradient(circle at 50% 60%, oklch(0.66 0.14 45 / 0.18), transparent 65%)" }}
+                      />
+                    </div>
+
+                    {/* Secondary + tertiary thumbs */}
+                    {p.images.length > 1 && (
+                      <div className="mt-4 grid grid-cols-2 gap-4">
+                        {p.images.slice(1, 3).map((src, idx) => (
+                          <div
+                            key={idx}
+                            className="overflow-hidden rounded-xl border transition duration-700 group-hover:-translate-y-0.5"
+                            style={{ borderColor: "oklch(0.48 0.09 50 / 0.35)" }}
+                          >
+                            <img
+                              src={src}
+                              alt={`${p.name} detail ${idx + 2}`}
+                              loading="lazy"
+                              className="block h-full w-full object-cover"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </div>
-                <div className="relative px-7 pb-8 pt-6">
-                  <div className="mb-3 flex items-center justify-between">
-                    <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
-                    <span className="label">{p.year}</span>
+
+                  {/* Copy */}
+                  <div className="lg:col-span-4">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
+                      <span className="label">{p.year}</span>
+                    </div>
+                    <h3 className="mb-4 text-3xl md:text-4xl">{p.name}</h3>
+                    <p className="mb-8 text-sm leading-relaxed text-muted-foreground md:text-base">{p.line}</p>
+                    <div
+                      className="inline-flex items-center gap-3 rounded-full border px-5 py-2.5 transition group-hover:-translate-y-0.5"
+                      style={{ borderColor: "oklch(0.66 0.14 45 / 0.5)", background: "oklch(0.1 0.008 40 / 0.5)" }}
+                    >
+                      <span className="label" style={{ color: "var(--copper)" }}>Visit live site</span>
+                      <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" style={{ color: "var(--copper)" }} />
+                    </div>
                   </div>
-                  <h3 className="mb-2 text-2xl md:text-3xl">{p.name}</h3>
-                  <p className="mb-4 text-sm text-muted-foreground">{p.line}</p>
-                  <p className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground/60">
-                    Visit live site →
-                  </p>
-                </div>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
