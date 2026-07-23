@@ -386,12 +386,7 @@ function Hero() {
       </div>
 
       <style>{`
-        @keyframes floatY { 0%,100% { translate: 0 0 } 50% { translate: 0 -14px } }
         @keyframes pulseGlow { 0%,100% { opacity: 0.55 } 50% { opacity: 0.9 } }
-        @keyframes spinSlow { to { transform: translate(-50%, -50%) rotate(360deg) } }
-        @keyframes codeIn { from { opacity: 0; transform: translateX(-8px) } to { opacity: 1; transform: translateX(0) } }
-        @keyframes blink { 50% { opacity: 0 } }
-        @keyframes shimmer { 0%,100% { background-position: 0 -100% } 50% { background-position: 0 100% } }
       `}</style>
     </section>
   );
