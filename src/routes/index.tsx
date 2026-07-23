@@ -451,7 +451,7 @@ function Hero() {
           <div className="reveal mt-14 grid max-w-md grid-cols-3 gap-6 border-t pt-6" style={{ borderColor: "oklch(0.48 0.09 50 / 0.3)" }}>
             {[
               ["By", "Invitation"],
-              ["Est.", "MMXXIV"],
+              ["Est.", "MMXXVI"],
               ["Craft", "Studio"],
             ].map(([k, v]) => (
               <div key={k}>
