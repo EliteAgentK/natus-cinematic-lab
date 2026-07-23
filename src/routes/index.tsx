@@ -3,10 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail } from "lucide-react";
 import logoAsset from "../assets/natus-lab-logo.png.asset.json";
 import heroAsset from "../assets/hero-atmosphere.jpg.asset.json";
-import project1Asset from "../assets/project-1.jpg.asset.json";
-import project2Asset from "../assets/project-2.jpg.asset.json";
-import project3Asset from "../assets/project-3.jpg.asset.json";
-import project4Asset from "../assets/project-4.jpg.asset.json";
+import invesstem1 from "../assets/invesstem-1.png.asset.json";
+import invesstem2 from "../assets/invesstem-2.png.asset.json";
+import invesstem3 from "../assets/invesstem-3.png.asset.json";
+import pitchpartners1 from "../assets/pitchpartners-1.png.asset.json";
+import pitchpartners2 from "../assets/pitchpartners-2.png.asset.json";
+import invesmed1 from "../assets/invesmed-1.png.asset.json";
+import invesmed2 from "../assets/invesmed-2.png.asset.json";
+import invesmed3 from "../assets/invesmed-3.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: NatusLab,
@@ -23,36 +27,28 @@ export const Route = createFileRoute("/")({
 /* --------- Projects (edit here to add more) --------- */
 const PROJECTS = [
   {
-    name: "Aurelia Studio",
-    type: "Fashion · Website",
-    line: "Cinematic seasonal identity for a boutique fashion house.",
-    image: project1Asset.url,
-    year: "2025",
+    name: "Inves-STEM",
+    type: "E-Learning · Platform",
+    line: "A vibrant STEM learning platform for independent learners, tutors and schools across Africa.",
+    images: [invesstem1.url, invesstem2.url, invesstem3.url],
+    year: "2026",
     href: "#",
   },
   {
-    name: "Aurelian Capital",
-    type: "Finance · Platform",
-    line: "Private portfolio platform for a global capital firm.",
-    image: project2Asset.url,
-    year: "2025",
-    href: "#",
+    name: "Pitch Partners",
+    type: "Coaching Agency · Website",
+    line: "A structured coaching platform for schools — flexible packages, live pricing, and player development.",
+    images: [pitchpartners1.url, pitchpartners2.url],
+    year: "2026",
+    href: "https://pitchpartners.co.za",
   },
   {
-    name: "Velmora",
-    type: "Luxury · E-Commerce",
-    line: "Limited-edition timepieces sold through a private storefront.",
-    image: project3Asset.url,
-    year: "2024",
-    href: "#",
-  },
-  {
-    name: "Luxe Concierge",
-    type: "Hospitality · App",
-    line: "Members-only mobile concierge for an invitation-only club.",
-    image: project4Asset.url,
-    year: "2024",
-    href: "#",
+    name: "Invesmed",
+    type: "Healthcare · Corporate Platform",
+    line: "An African healthcare ecosystem — telemedicine, diagnostics, remote monitoring and workforce development.",
+    images: [invesmed1.url, invesmed2.url, invesmed3.url],
+    year: "2026",
+    href: "https://invesmed.co.za",
   },
 ];
 
