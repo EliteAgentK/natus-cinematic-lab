@@ -3,10 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail } from "lucide-react";
 import logoAsset from "../assets/natus-lab-logo.png.asset.json";
 import heroAsset from "../assets/hero-atmosphere.jpg.asset.json";
-import project1Asset from "../assets/project-1.jpg.asset.json";
-import project2Asset from "../assets/project-2.jpg.asset.json";
-import project3Asset from "../assets/project-3.jpg.asset.json";
-import project4Asset from "../assets/project-4.jpg.asset.json";
+import invesstem1 from "../assets/invesstem-1.png.asset.json";
+import invesstem2 from "../assets/invesstem-2.png.asset.json";
+import invesstem3 from "../assets/invesstem-3.png.asset.json";
+import pitchpartners1 from "../assets/pitchpartners-1.png.asset.json";
+import pitchpartners2 from "../assets/pitchpartners-2.png.asset.json";
+import invesmed1 from "../assets/invesmed-1.png.asset.json";
+import invesmed2 from "../assets/invesmed-2.png.asset.json";
+import invesmed3 from "../assets/invesmed-3.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: NatusLab,
@@ -23,36 +27,28 @@ export const Route = createFileRoute("/")({
 /* --------- Projects (edit here to add more) --------- */
 const PROJECTS = [
   {
-    name: "Aurelia Studio",
-    type: "Fashion · Website",
-    line: "Cinematic seasonal identity for a boutique fashion house.",
-    image: project1Asset.url,
-    year: "2025",
+    name: "Inves-STEM",
+    type: "E-Learning · Platform",
+    line: "A vibrant STEM learning platform for independent learners, tutors and schools across Africa.",
+    images: [invesstem1.url, invesstem2.url, invesstem3.url],
+    year: "2026",
     href: "#",
   },
   {
-    name: "Aurelian Capital",
-    type: "Finance · Platform",
-    line: "Private portfolio platform for a global capital firm.",
-    image: project2Asset.url,
-    year: "2025",
-    href: "#",
+    name: "Pitch Partners",
+    type: "Coaching Agency · Website",
+    line: "A structured coaching platform for schools — flexible packages, live pricing, and player development.",
+    images: [pitchpartners1.url, pitchpartners2.url],
+    year: "2026",
+    href: "https://pitchpartners.co.za",
   },
   {
-    name: "Velmora",
-    type: "Luxury · E-Commerce",
-    line: "Limited-edition timepieces sold through a private storefront.",
-    image: project3Asset.url,
-    year: "2024",
-    href: "#",
-  },
-  {
-    name: "Luxe Concierge",
-    type: "Hospitality · App",
-    line: "Members-only mobile concierge for an invitation-only club.",
-    image: project4Asset.url,
-    year: "2024",
-    href: "#",
+    name: "Invesmed",
+    type: "Healthcare · Corporate Platform",
+    line: "An African healthcare ecosystem — telemedicine, diagnostics, remote monitoring and workforce development.",
+    images: [invesmed1.url, invesmed2.url, invesmed3.url],
+    year: "2026",
+    href: "https://invesmed.co.za",
   },
 ];
 
@@ -171,19 +167,19 @@ function ParticleField() {
 function IntroLoader() {
   const [gone, setGone] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setGone(true), 2600);
+    const t = setTimeout(() => setGone(true), 2400);
     return () => clearTimeout(t);
   }, []);
   if (gone) return null;
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
-      style={{ animation: "intro-fade-out 0.8s ease 2.2s forwards" }}
+      style={{ animation: "intro-fade-out 0.8s ease 2.0s forwards" }}
     >
       <img
         src={logoAsset.url}
         alt="Natus Lab"
-        className="h-64 w-64 md:h-80 md:w-80"
+        className="h-40 w-40 md:h-52 md:w-52"
         style={{ animation: "logo-glow 1.8s cubic-bezier(.2,.7,.2,1) forwards" }}
       />
     </div>
@@ -451,29 +447,65 @@ function Hero() {
           </div>
         </div>
 
-        {/* Logo mark, softly floating */}
+        {/* Real-work montage: layered browser + phone frames of live projects */}
         <div
-          className="relative mx-auto hidden aspect-square w-full max-w-md items-center justify-center lg:flex"
-          style={{ perspective: "1200px" }}
+          className="relative mx-auto hidden aspect-[4/5] w-full max-w-md lg:block"
+          style={{ perspective: "1400px" }}
         >
+          {/* Back browser: Invesmed */}
           <div
-            className="absolute inset-0 rounded-full"
+            className="absolute right-0 top-0 w-[92%] overflow-hidden rounded-xl border shadow-[0_50px_100px_-20px_oklch(0_0_0/0.7),0_0_60px_-10px_oklch(0.66_0.14_45/0.22)]"
             style={{
-              background: "radial-gradient(circle, oklch(0.66 0.14 45 / 0.25), transparent 65%)",
-              filter: "blur(30px)",
-              animation: "pulseGlow 6s ease-in-out infinite",
+              borderColor: "oklch(0.48 0.09 50 / 0.4)",
+              transform: `rotateX(${8 - tilt.x}deg) rotateY(${-12 + tilt.y}deg)`,
+              transformStyle: "preserve-3d",
+              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
+              animation: "floatY 9s ease-in-out infinite",
             }}
-          />
-          <img
-            src={logoAsset.url}
-            alt="Natus Lab mark"
-            className="relative z-10 w-4/5 drop-shadow-[0_20px_60px_oklch(0.66_0.14_45_/_0.35)]"
+          >
+            <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
+              <span className="ml-3 text-[9px] tracking-widest text-muted-foreground">invesmed.co.za</span>
+            </div>
+            <img src={invesmed1.url} alt="Invesmed" className="block w-full" />
+          </div>
+
+          {/* Middle browser: Inves-STEM */}
+          <div
+            className="absolute left-0 top-[38%] w-[78%] overflow-hidden rounded-xl border shadow-[0_40px_80px_-20px_oklch(0_0_0/0.7),0_0_50px_-10px_oklch(0.66_0.14_45/0.25)]"
             style={{
-              transform: `rotateX(${-tilt.x * 0.3}deg) rotateY(${tilt.y * 0.3}deg)`,
+              borderColor: "oklch(0.66 0.14 45 / 0.5)",
+              transform: `rotateX(${-4 + tilt.x}deg) rotateY(${8 - tilt.y}deg) rotateZ(-3deg)`,
+              transformStyle: "preserve-3d",
+              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
+              animation: "floatY 7s ease-in-out infinite reverse",
+            }}
+          >
+            <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
+              <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
+              <span className="ml-3 text-[9px] tracking-widest text-muted-foreground">inves-stem.co</span>
+            </div>
+            <img src={invesstem1.url} alt="Inves-STEM" className="block w-full" />
+          </div>
+
+          {/* Front card: Pitch Partners pricing detail */}
+          <div
+            className="absolute bottom-0 right-4 w-[52%] overflow-hidden rounded-xl border shadow-[0_40px_60px_-15px_oklch(0_0_0/0.75)]"
+            style={{
+              borderColor: "oklch(0.66 0.14 45 / 0.55)",
+              transform: `rotateX(${-6 + tilt.x * 1.2}deg) rotateY(${-6 - tilt.y}deg) rotateZ(4deg)`,
+              transformStyle: "preserve-3d",
               transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
               animation: "floatY 8s ease-in-out infinite",
+              animationDelay: "0.4s",
             }}
-          />
+          >
+            <img src={pitchpartners2.url} alt="Pitch Partners" className="block w-full" />
+          </div>
         </div>
       </div>
 
@@ -589,48 +621,85 @@ function NatusLab() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {PROJECTS.map((p, i) => (
-              <a
-                key={p.name}
-                href={p.href}
-                target="_blank"
-                rel="noreferrer"
-                className="reveal group relative block overflow-hidden rounded-2xl border transition duration-500 hover:-translate-y-1"
-                style={{ borderColor: "oklch(0.48 0.09 50 / 0.4)" }}
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-black">
-                  <img
-                    src={p.image}
-                    alt={`${p.name} — ${p.type}`}
-                    loading={i < 2 ? "eager" : "lazy"}
-                    className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                  <div
-                    className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
-                    style={{ background: "radial-gradient(circle at 50% 65%, oklch(0.66 0.14 45 / 0.22), transparent 65%)" }}
-                  />
-                  <div
-                    className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition group-hover:-translate-y-1 group-hover:translate-x-1"
-                    style={{ borderColor: "oklch(0.66 0.14 45 / 0.6)", background: "oklch(0.1 0.008 40 / 0.55)" }}
-                  >
-                    <ArrowUpRight className="h-4 w-4" style={{ color: "var(--copper)" }} />
+          <div className="flex flex-col gap-24">
+            {PROJECTS.map((p, i) => {
+              const reversed = i % 2 === 1;
+              return (
+                <a
+                  key={p.name}
+                  href={p.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`reveal group grid grid-cols-1 items-center gap-10 lg:grid-cols-12 ${
+                    reversed ? "lg:[&>*:first-child]:order-2" : ""
+                  }`}
+                >
+                  {/* Image reel: primary + secondary tiles */}
+                  <div className="relative lg:col-span-8">
+                    <div
+                      className="relative overflow-hidden rounded-2xl border shadow-[0_40px_80px_-30px_oklch(0_0_0/0.8)] transition duration-700 group-hover:-translate-y-1"
+                      style={{ borderColor: "oklch(0.48 0.09 50 / 0.4)" }}
+                    >
+                      <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
+                        <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
+                        <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
+                        <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
+                        <span className="ml-3 text-[10px] tracking-widest text-muted-foreground">
+                          {p.href.replace(/^https?:\/\//, "") || `${p.name.toLowerCase().replace(/\s+/g, "")}.co`}
+                        </span>
+                      </div>
+                      <img
+                        src={p.images[0]}
+                        alt={`${p.name} — ${p.type}`}
+                        loading={i === 0 ? "eager" : "lazy"}
+                        className="block w-full transition-transform duration-[1400ms] ease-out group-hover:scale-[1.02]"
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
+                        style={{ background: "radial-gradient(circle at 50% 60%, oklch(0.66 0.14 45 / 0.18), transparent 65%)" }}
+                      />
+                    </div>
+
+                    {/* Secondary + tertiary thumbs */}
+                    {p.images.length > 1 && (
+                      <div className="mt-4 grid grid-cols-2 gap-4">
+                        {p.images.slice(1, 3).map((src, idx) => (
+                          <div
+                            key={idx}
+                            className="overflow-hidden rounded-xl border transition duration-700 group-hover:-translate-y-0.5"
+                            style={{ borderColor: "oklch(0.48 0.09 50 / 0.35)" }}
+                          >
+                            <img
+                              src={src}
+                              alt={`${p.name} detail ${idx + 2}`}
+                              loading="lazy"
+                              className="block h-full w-full object-cover"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </div>
-                <div className="relative px-7 pb-8 pt-6">
-                  <div className="mb-3 flex items-center justify-between">
-                    <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
-                    <span className="label">{p.year}</span>
+
+                  {/* Copy */}
+                  <div className="lg:col-span-4">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
+                      <span className="label">{p.year}</span>
+                    </div>
+                    <h3 className="mb-4 text-3xl md:text-4xl">{p.name}</h3>
+                    <p className="mb-8 text-sm leading-relaxed text-muted-foreground md:text-base">{p.line}</p>
+                    <div
+                      className="inline-flex items-center gap-3 rounded-full border px-5 py-2.5 transition group-hover:-translate-y-0.5"
+                      style={{ borderColor: "oklch(0.66 0.14 45 / 0.5)", background: "oklch(0.1 0.008 40 / 0.5)" }}
+                    >
+                      <span className="label" style={{ color: "var(--copper)" }}>Visit live site</span>
+                      <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" style={{ color: "var(--copper)" }} />
+                    </div>
                   </div>
-                  <h3 className="mb-2 text-2xl md:text-3xl">{p.name}</h3>
-                  <p className="mb-4 text-sm text-muted-foreground">{p.line}</p>
-                  <p className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground/60">
-                    Visit live site →
-                  </p>
-                </div>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
