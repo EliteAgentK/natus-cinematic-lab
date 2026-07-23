@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail, Phone } from "lucide-react";
-import logoAsset from "../assets/natus-lab-logo.png.asset.json";
-import heroAsset from "../assets/hero-atmosphere.jpg.asset.json";
+import logoAsset from "../assets/natus-lab-logo-mark.png.asset.json";
+import heroAsset from "../assets/hero-code-atmosphere.jpg.asset.json";
 import invesstem1 from "../assets/invesstem-1.png.asset.json";
 import invesstem2 from "../assets/invesstem-2.png.asset.json";
 import invesstem3 from "../assets/invesstem-3.png.asset.json";
