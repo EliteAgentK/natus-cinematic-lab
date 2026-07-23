@@ -443,12 +443,12 @@ function ProjectCard({
 
   return (
     <div
-      className={`reveal group grid grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-12 lg:gap-16 ${
-        reversed ? "lg:[&>*:first-child]:order-2" : ""
+      className={`reveal group grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-12 lg:gap-16 ${
+        reversed ? "md:[&>*:first-child]:order-2" : ""
       }`}
     >
       {/* Image — quiet editorial frame */}
-      <div className="lg:col-span-7">
+      <div className="md:col-span-7">
         <a
           href={p.href}
           target={p.live ? "_blank" : undefined}
@@ -541,7 +541,7 @@ function ProjectCard({
       </div>
 
       {/* Copy */}
-      <div className="lg:col-span-5">
+      <div className="md:col-span-5">
         <div className="mb-5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
           <span className="label min-w-0 truncate" style={{ color: "var(--copper)" }}>{p.type}</span>
           <span className="label shrink-0">{p.year}</span>
