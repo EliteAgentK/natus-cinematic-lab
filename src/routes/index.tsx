@@ -543,9 +543,9 @@ function Hero() {
 /* --------- Marquee capabilities --------- */
 function Marquee() {
   const items = [
-    "Brand Systems", "Editorial Websites", "SaaS Platforms", "E-Commerce",
-    "Native Apps", "Motion Design", "Web3 Interfaces", "Private Portals",
-    "AI Interfaces", "Design Systems",
+    "Editorial Websites", "SaaS Platforms", "E-Commerce Stores",
+    "Mobile Apps", "Motion Design", "Brand Systems",
+    "Private Portals", "AI Interfaces", "Design Systems",
   ];
   const row = [...items, ...items];
   return (
