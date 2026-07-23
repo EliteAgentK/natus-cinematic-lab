@@ -320,7 +320,7 @@ function Hero() {
       </div>
 
       <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center px-6 py-20">
-        <div>
+        <div className="mx-auto w-full max-w-3xl">
           <div
             className="reveal mb-8 inline-flex items-center gap-3 rounded-full border px-4 py-1.5"
             style={{ borderColor: "oklch(0.66 0.14 45 / 0.4)", background: "oklch(0.12 0.008 40 / 0.5)", backdropFilter: "blur(10px)" }}
