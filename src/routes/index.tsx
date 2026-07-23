@@ -574,10 +574,10 @@ function NatusLab() {
   useReveal();
 
   const services = [
-    { icon: Globe, title: "Websites", line: "Editorial, cinematic sites built to convert and endure." },
-    { icon: LayoutGrid, title: "Platforms", line: "Custom internal systems and client-facing platforms." },
-    { icon: ShoppingBag, title: "E-Commerce", line: "Boutique storefronts engineered for premium brands." },
-    { icon: Smartphone, title: "Apps", line: "Native-feel mobile and web apps with intent-first UX." },
+    { icon: Globe,      title: "Websites",         line: "Editorial, cinematic sites built to convert and endure.",   image: svcWebsites.url },
+    { icon: LayoutGrid, title: "SaaS Platforms",   line: "Custom internal systems and client-facing platforms.",       image: svcPlatforms.url },
+    { icon: ShoppingBag,title: "E-Commerce Stores",line: "Boutique storefronts engineered for premium brands.",        image: svcEcommerce.url },
+    { icon: Smartphone, title: "Mobile Apps",      line: "Native-feel mobile and web apps with intent-first UX.",      image: svcApps.url },
   ];
 
   const principles = [
