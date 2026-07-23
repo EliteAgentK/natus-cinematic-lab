@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail } from "lucide-react";
+import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail, Phone } from "lucide-react";
 import logoAsset from "../assets/natus-lab-logo.png.asset.json";
 import heroAsset from "../assets/hero-atmosphere.jpg.asset.json";
 import invesstem1 from "../assets/invesstem-1.png.asset.json";
@@ -11,6 +11,10 @@ import pitchpartners2 from "../assets/pitchpartners-2.png.asset.json";
 import invesmed1 from "../assets/invesmed-1.png.asset.json";
 import invesmed2 from "../assets/invesmed-2.png.asset.json";
 import invesmed3 from "../assets/invesmed-3.png.asset.json";
+import svcWebsites from "../assets/service-websites.jpg.asset.json";
+import svcPlatforms from "../assets/service-platforms.jpg.asset.json";
+import svcEcommerce from "../assets/service-ecommerce.jpg.asset.json";
+import svcApps from "../assets/service-apps.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: NatusLab,
@@ -31,8 +35,11 @@ const PROJECTS = [
     type: "E-Learning · Platform",
     line: "A vibrant STEM learning platform for independent learners, tutors and schools across Africa.",
     images: [invesstem1.url, invesstem2.url, invesstem3.url],
-    year: "2026",
+    year: "2027",
+    status: "In Progress · Launching 2027",
     href: "#",
+    live: false,
+    domain: "inves-stem.co",
   },
   {
     name: "Pitch Partners",
@@ -41,6 +48,8 @@ const PROJECTS = [
     images: [pitchpartners1.url, pitchpartners2.url],
     year: "2026",
     href: "https://pitchpartners.co.za",
+    live: true,
+    domain: "pitchpartners.co.za",
   },
   {
     name: "Invesmed",
@@ -49,11 +58,17 @@ const PROJECTS = [
     images: [invesmed1.url, invesmed2.url, invesmed3.url],
     year: "2026",
     href: "https://invesmed.co.za",
+    live: true,
+    domain: "invesmed.co.za",
   },
 ];
 
-const WHATSAPP_URL = "https://wa.me/10000000000";
-const EMAIL = "hello@natuslab.co";
+// WhatsApp: +27 66 235 7143 (SA)
+const WHATSAPP_URL = "https://wa.me/27662357143?text=Hi%20Natus%20Lab%20%E2%80%94%20I'd%20like%20to%20start%20a%20project.";
+const PHONE_TEL = "tel:+27716499093";
+const PHONE_DISPLAY = "+27 71 649 9093";
+const WHATSAPP_DISPLAY = "+27 66 235 7143";
+const EMAIL = "khumo.abraham@gmail.com";
 
 /* --------- Particle field: copper drift + parallax reactive --------- */
 function ParticleField() {
