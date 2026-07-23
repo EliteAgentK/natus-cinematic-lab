@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail, Phone } from "lucide-react";
-import logoAsset from "../assets/natus-lab-logo.png.asset.json";
-import heroAsset from "../assets/hero-atmosphere.jpg.asset.json";
+import logoAsset from "../assets/natus-lab-logo-mark.png.asset.json";
+import heroAsset from "../assets/hero-code-atmosphere.jpg.asset.json";
 import invesstem1 from "../assets/invesstem-1.png.asset.json";
 import invesstem2 from "../assets/invesstem-2.png.asset.json";
 import invesstem3 from "../assets/invesstem-3.png.asset.json";
@@ -194,7 +194,7 @@ function IntroLoader() {
       <img
         src={logoAsset.url}
         alt="Natus Lab"
-        className="h-40 w-40 md:h-52 md:w-52"
+        className="h-72 w-72 md:h-[26rem] md:w-[26rem]"
         style={{ animation: "logo-glow 1.8s cubic-bezier(.2,.7,.2,1) forwards" }}
       />
     </div>
@@ -222,7 +222,7 @@ function Nav() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:py-5">
         <a href="#top" className="flex items-center gap-3">
-          <img src={logoAsset.url} alt="Natus Lab" className="h-9 w-9 md:h-10 md:w-10" />
+          <img src={logoAsset.url} alt="Natus Lab" className="h-12 w-12 md:h-14 md:w-14" />
           <span className="wordmark hidden text-sm text-foreground md:inline">Natus Lab</span>
         </a>
         <nav className="hidden items-center gap-10 md:flex">
@@ -979,7 +979,7 @@ function NatusLab() {
       <footer className="relative border-t border-border/50 py-14">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-6 md:flex-row">
           <div className="flex items-center gap-3">
-            <img src={logoAsset.url} alt="Natus Lab" className="h-9 w-9" />
+            <img src={logoAsset.url} alt="Natus Lab" className="h-12 w-12" />
             <span className="wordmark text-xs text-foreground">Natus Lab</span>
           </div>
           <div className="flex items-center gap-6">
