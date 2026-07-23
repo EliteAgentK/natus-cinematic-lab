@@ -356,6 +356,172 @@ function useReveal() {
   }, []);
 }
 
+/* --------- Hero --------- */
+function Hero() {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const on = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      setTilt({ x: (e.clientY - cy) / 90, y: (e.clientX - cx) / 90 });
+    };
+    window.addEventListener("mousemove", on);
+    return () => window.removeEventListener("mousemove", on);
+  }, []);
+
+  return (
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-24">
+      {/* Layered atmosphere: hero image + particles + radial masks */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${heroAsset.url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "saturate(1.05)",
+            transform: `translate3d(${tilt.y * 0.6}px, ${tilt.x * 0.6}px, 0) scale(1.06)`,
+            transition: "transform 0.9s cubic-bezier(.2,.7,.2,1)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at 60% 50%, transparent 0%, oklch(0.09 0.006 40 / 0.55) 45%, var(--background) 82%)",
+          }}
+        />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+        <ParticleField />
+      </div>
+
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 px-6 py-20 lg:grid-cols-[1.15fr_1fr]">
+        <div>
+          <div
+            className="reveal mb-8 inline-flex items-center gap-3 rounded-full border px-4 py-1.5"
+            style={{ borderColor: "oklch(0.66 0.14 45 / 0.4)", background: "oklch(0.12 0.008 40 / 0.5)", backdropFilter: "blur(10px)" }}
+          >
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--copper)", boxShadow: "0 0 12px var(--copper)" }} />
+            <span className="label" style={{ letterSpacing: "0.28em", color: "var(--foreground)" }}>
+              Private Digital Studio
+            </span>
+          </div>
+
+          <h1 className="reveal text-[3.4rem] leading-[0.98] tracking-tight md:text-[5rem] lg:text-[6rem]">
+            Digital work,
+            <br />
+            <span
+              className="italic"
+              style={{
+                background: "linear-gradient(120deg, oklch(0.62 0.14 45), oklch(0.82 0.13 70) 55%, oklch(0.6 0.13 42))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              built to matter.
+            </span>
+          </h1>
+
+          <p className="reveal mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            A quiet studio designing websites, platforms, e-commerce and apps
+            for brands that refuse to look like anyone else. Born from nature.
+            Built for transformation.
+          </p>
+
+          <div className="reveal mt-10 flex flex-wrap items-center gap-4">
+            <a href="#work" className="btn-copper rounded-full px-8 py-4 text-xs uppercase tracking-[0.28em]">
+              View Work
+            </a>
+            <a href="#contact" className="btn-ghost-copper rounded-full px-8 py-4 text-xs uppercase tracking-[0.28em]">
+              Start a Project
+            </a>
+          </div>
+
+          <div className="reveal mt-14 grid max-w-md grid-cols-3 gap-6 border-t pt-6" style={{ borderColor: "oklch(0.48 0.09 50 / 0.3)" }}>
+            {[
+              ["By", "Invitation"],
+              ["Est.", "MMXXIV"],
+              ["Craft", "Studio"],
+            ].map(([k, v]) => (
+              <div key={k}>
+                <div className="label mb-1">{k}</div>
+                <div className="text-sm text-foreground" style={{ fontFamily: "var(--font-serif)", fontSize: "1.1rem" }}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Logo mark, softly floating */}
+        <div
+          className="relative mx-auto hidden aspect-square w-full max-w-md items-center justify-center lg:flex"
+          style={{ perspective: "1200px" }}
+        >
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: "radial-gradient(circle, oklch(0.66 0.14 45 / 0.25), transparent 65%)",
+              filter: "blur(30px)",
+              animation: "pulseGlow 6s ease-in-out infinite",
+            }}
+          />
+          <img
+            src={logoAsset.url}
+            alt="Natus Lab mark"
+            className="relative z-10 w-4/5 drop-shadow-[0_20px_60px_oklch(0.66_0.14_45_/_0.35)]"
+            style={{
+              transform: `rotateX(${-tilt.x * 0.3}deg) rotateY(${tilt.y * 0.3}deg)`,
+              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
+              animation: "floatY 8s ease-in-out infinite",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-8 flex justify-center">
+        <div className="flex flex-col items-center gap-3 opacity-70">
+          <span className="label" style={{ fontSize: "0.6rem" }}>Scroll</span>
+          <div className="h-10 w-px" style={{ background: "linear-gradient(to bottom, var(--copper), transparent)" }} />
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes floatY { 0%,100% { translate: 0 0 } 50% { translate: 0 -14px } }
+        @keyframes pulseGlow { 0%,100% { opacity: 0.55 } 50% { opacity: 0.9 } }
+      `}</style>
+    </section>
+  );
+}
+
+/* --------- Marquee capabilities --------- */
+function Marquee() {
+  const items = [
+    "Brand Systems", "Editorial Websites", "SaaS Platforms", "E-Commerce",
+    "Native Apps", "Motion Design", "Web3 Interfaces", "Private Portals",
+    "AI Interfaces", "Design Systems",
+  ];
+  const row = [...items, ...items];
+  return (
+    <section aria-hidden className="relative border-y py-8" style={{ borderColor: "oklch(0.48 0.09 50 / 0.28)", background: "oklch(0.11 0.008 40 / 0.6)" }}>
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-background to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-background to-transparent" />
+      <div className="overflow-hidden">
+        <div className="flex gap-14" style={{ animation: "scroll-x 40s linear infinite", width: "max-content" }}>
+          {row.map((w, i) => (
+            <div key={i} className="flex items-center gap-14">
+              <span className="text-2xl md:text-3xl" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "oklch(0.75 0.02 60)" }}>
+                {w}
+              </span>
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--copper)" }} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@keyframes scroll-x { from { transform: translateX(0) } to { transform: translateX(-50%) } }`}</style>
+    </section>
+  );
+}
+
 /* --------- Main page --------- */
 function NatusLab() {
   useReveal();
