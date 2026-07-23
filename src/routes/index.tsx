@@ -429,7 +429,7 @@ function Marquee() {
 }
 
 /* --------- Main page --------- */
-/* --------- Project card (editorial, image-first) --------- */
+/* --------- Project card (private gallery reference) --------- */
 function ProjectCard({
   p,
   index,
@@ -443,17 +443,17 @@ function ProjectCard({
 
   return (
     <div
-      className={`reveal group grid grid-cols-1 items-center gap-10 lg:grid-cols-12 ${
+      className={`reveal group grid grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-12 lg:gap-16 ${
         reversed ? "lg:[&>*:first-child]:order-2" : ""
       }`}
     >
-      {/* Image — full-bleed, no chrome, no thumbnails */}
+      {/* Image — quiet editorial frame */}
       <div className="lg:col-span-7">
         <a
           href={p.href}
           target={p.live ? "_blank" : undefined}
           rel={p.live ? "noreferrer" : undefined}
-          className="relative block"
+          className={`relative block ${p.live ? "cursor-pointer" : "cursor-default"}`}
         >
           <div
             ref={imageRef}
@@ -466,33 +466,34 @@ function ProjectCard({
               });
             }}
             onMouseLeave={() => setOffset({ x: 0, y: 0 })}
-            className="relative overflow-hidden rounded-2xl border"
+            className="relative overflow-hidden rounded-xl border"
             style={{
-              borderColor: "oklch(0.48 0.09 50 / 0.35)",
-              boxShadow: "0 40px 80px -30px oklch(0 0 0 / 0.75)",
-              transform: `translate(${offset.x}px, ${offset.y}px)`,
-              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1), border-color 0.5s ease",
+              borderColor: "oklch(0.48 0.09 50 / 0.28)",
+              boxShadow: "0 34px 74px -38px oklch(0 0 0 / 0.9)",
+              transform: `translate(${offset.x}px, ${offset.y}px) scale(0.985)`,
+              transition: "transform 0.9s cubic-bezier(.2,.7,.2,1), border-color 0.5s ease, box-shadow 0.5s ease",
             }}
           >
             {/* Subtle copper bloom */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 z-10 opacity-40 transition duration-700 group-hover:opacity-70"
+              className="pointer-events-none absolute inset-0 z-10 opacity-25 transition duration-700 group-hover:opacity-55"
               style={{
                 background:
-                  "radial-gradient(circle at 30% 30%, oklch(0.66 0.14 45 / 0.22), transparent 60%)",
+                  "radial-gradient(circle at 18% 14%, oklch(0.66 0.14 45 / 0.22), transparent 56%)",
               }}
             />
             {/* Inner glass rim */}
             <div
-              className="absolute inset-0 z-10 rounded-2xl border border-white/5 opacity-0 transition duration-500 group-hover:opacity-100"
+              className="absolute inset-0 z-10 rounded-xl border opacity-0 transition duration-500 group-hover:opacity-100"
+              style={{ borderColor: "oklch(0.9 0.02 70 / 0.08)" }}
               aria-hidden
             />
             <img
               src={p.images[0]}
               alt={`${p.name} project preview`}
               loading={index === 0 ? "eager" : "lazy"}
-              className="block aspect-[16/10] w-full object-cover object-top transition duration-[1200ms] ease-out group-hover:scale-[1.03]"
+              className="block aspect-[16/10] w-full object-cover object-top opacity-95 transition duration-[1200ms] ease-out group-hover:scale-[1.025] group-hover:opacity-100"
             />
             {/* Bottom vignette */}
             <div
@@ -503,9 +504,9 @@ function ProjectCard({
               }}
             />
             {/* Domain chip */}
-            <div className="absolute bottom-4 left-4 z-20 flex items-center gap-3">
+            <div className="absolute bottom-4 left-4 z-20 flex flex-wrap items-center gap-2">
               <span
-                className="rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] backdrop-blur-md"
+                className="rounded-full border px-3 py-1.5 text-[9px] uppercase tracking-[0.18em] backdrop-blur-md"
                 style={{
                   borderColor: "oklch(0.66 0.14 45 / 0.35)",
                   background: "oklch(0.1 0.008 40 / 0.65)",
@@ -516,7 +517,7 @@ function ProjectCard({
               </span>
               {p.live === false && (
                 <span
-                  className="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.2em]"
+                  className="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[9px] uppercase tracking-[0.18em]"
                   style={{
                     borderColor: "oklch(0.66 0.14 45 / 0.55)",
                     color: "var(--copper)",
@@ -541,32 +542,33 @@ function ProjectCard({
 
       {/* Copy */}
       <div className="lg:col-span-5">
-        <div className="mb-4 flex items-center justify-between">
-          <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
-          <span className="label">{p.year}</span>
+        <div className="mb-5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+          <span className="label min-w-0 truncate" style={{ color: "var(--copper)" }}>{p.type}</span>
+          <span className="label shrink-0">{p.year}</span>
         </div>
         <h3 className="mb-4 text-3xl md:text-4xl">{p.name}</h3>
-        <p className="mb-6 text-sm leading-relaxed text-muted-foreground md:text-base">{p.line}</p>
+        <p className="mb-6 max-w-lg text-sm leading-relaxed text-muted-foreground md:text-base">{p.line}</p>
 
-        {p.status && (
-          <div
-            className="mb-6 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.24em]"
-            style={{
-              borderColor: "oklch(0.66 0.14 45 / 0.55)",
-              color: "var(--copper)",
-              background: "oklch(0.12 0.008 40 / 0.6)",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            <span
-              className="h-1.5 w-1.5 rounded-full"
-              style={{ background: "var(--copper)", boxShadow: "0 0 10px var(--copper)" }}
-            />
-            {p.status}
-          </div>
-        )}
+        <div className="flex flex-wrap items-center gap-3">
+          {p.status && (
+            <div
+              className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[9px] uppercase tracking-[0.22em]"
+              style={{
+                borderColor: "oklch(0.66 0.14 45 / 0.55)",
+                color: "var(--copper)",
+                background: "oklch(0.12 0.008 40 / 0.6)",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ background: "var(--copper)", boxShadow: "0 0 10px var(--copper)" }}
+              />
+              {p.status}
+            </div>
+          )}
 
-        {p.live ? (
+          {p.live ? (
           <a
             href={p.href}
             target="_blank"
@@ -584,11 +586,12 @@ function ProjectCard({
               style={{ color: "var(--copper)" }}
             />
           </a>
-        ) : (
-          <span className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-            Preview by request
-          </span>
-        )}
+          ) : (
+            <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+              Preview by request
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -696,7 +699,7 @@ function NatusLab() {
       {/* WORK */}
       <section id="work" className="relative py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="reveal mb-14 flex items-end justify-between gap-8">
+          <div className="reveal mb-14 grid grid-cols-1 items-end gap-8 md:grid-cols-[minmax(0,1fr)_auto]">
             <div>
               <span className="label" style={{ color: "var(--copper)" }}>Selected Work</span>
               <h2 className="mt-4 text-4xl md:text-5xl">A private gallery.</h2>
@@ -706,7 +709,7 @@ function NatusLab() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-16">
+          <div className="flex flex-col gap-20 md:gap-24">
             {PROJECTS.map((p, i) => (
               <ProjectCard key={p.name} p={p} index={i} />
             ))}
