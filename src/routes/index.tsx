@@ -319,7 +319,7 @@ function Hero() {
         <ParticleField />
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 px-6 py-20 lg:grid-cols-[1.15fr_1fr]">
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center px-6 py-20">
         <div>
           <div
             className="reveal mb-8 inline-flex items-center gap-3 rounded-full border px-4 py-1.5"
