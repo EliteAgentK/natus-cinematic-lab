@@ -416,7 +416,14 @@ function Marquee() {
           ))}
         </div>
       </div>
-      <style>{`@keyframes scroll-x { from { transform: translateX(0) } to { transform: translateX(-50%) } }`}</style>
+      <style>{`
+        @keyframes scroll-x { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+        @keyframes spinSlow { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+        @keyframes principleScan {
+          0% { transform: translateX(-100%) }
+          100% { transform: translateX(300%) }
+        }
+      `}</style>
     </section>
   );
 }
@@ -746,25 +753,136 @@ function NatusLab() {
       </section>
 
       {/* PROCESS */}
-      <section id="process" className="relative py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="reveal mb-14">
+      <section id="process" className="relative overflow-hidden py-28">
+        {/* Cinematic background */}
+        <div className="pointer-events-none absolute inset-0">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 50% 50%, oklch(0.66 0.14 45 / 0.06), transparent 55%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, oklch(0.48 0.09 50 / 0.12) 1px, transparent 1px), linear-gradient(0deg, oklch(0.48 0.09 50 / 0.12) 1px, transparent 1px)",
+              backgroundSize: "80px 80px",
+              maskImage: "radial-gradient(circle at 50% 50%, black 30%, transparent 80%)",
+              WebkitMaskImage: "radial-gradient(circle at 50% 50%, black 30%, transparent 80%)",
+            }}
+          />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="reveal mb-16 text-center">
             <span className="label" style={{ color: "var(--copper)" }}>The Difference</span>
-            <h2 className="mt-4 max-w-xl text-4xl md:text-5xl">Three principles. Held to.</h2>
+            <h2 className="mx-auto mt-4 max-w-2xl text-4xl md:text-6xl">
+              Three principles. Held to.
+            </h2>
           </div>
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-            {principles.map((p) => (
-              <div key={p.n} className="reveal border-t pt-8" style={{ borderColor: "oklch(0.48 0.09 50 / 0.35)" }}>
+
+          {/* Connected principles strip */}
+          <div className="relative">
+            {/* Animated connecting line */}
+            <div
+              className="pointer-events-none absolute left-0 right-0 top-[4.25rem] hidden h-px md:block"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent 0%, oklch(0.66 0.14 45 / 0.45) 20%, oklch(0.66 0.14 45 / 0.45) 80%, transparent 100%)",
+              }}
+            >
+              <div
+                className="absolute inset-y-0 left-0 w-1/3"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, oklch(0.85 0.12 85 / 0.9), transparent)",
+                  animation: "principleScan 4.5s linear infinite",
+                }}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {principles.map((p, i) => (
                 <div
-                  className="mb-6 font-serif text-5xl md:text-6xl"
-                  style={{ color: "var(--copper)", fontFamily: "var(--font-serif)" }}
+                  key={p.n}
+                  className="reveal group relative"
+                  style={{ transitionDelay: `${i * 120}ms` }}
                 >
-                  {p.n}
+                  {/* Orbital number */}
+                  <div className="relative z-10 mx-auto mb-8 flex h-36 w-36 items-center justify-center md:mx-0">
+                    {/* Outer rotating ring */}
+                    <div
+                      className="absolute inset-0 rounded-full border border-dashed opacity-40 transition duration-700 group-hover:opacity-100"
+                      style={{
+                        borderColor: "oklch(0.66 0.14 45 / 0.5)",
+                        animation: `spinSlow ${12 + i * 4}s linear infinite`,
+                      }}
+                    />
+                    {/* Inner glow ring */}
+                    <div
+                      className="absolute inset-2 rounded-full opacity-0 transition duration-500 group-hover:opacity-100"
+                      style={{
+                        background:
+                          "radial-gradient(circle, oklch(0.66 0.14 45 / 0.25), transparent 70%)",
+                        filter: "blur(8px)",
+                      }}
+                    />
+                    {/* Number */}
+                    <div
+                      className="relative font-serif text-5xl transition duration-500 group-hover:scale-110 md:text-6xl"
+                      style={{ color: "var(--copper)", fontFamily: "var(--font-serif)" }}
+                    >
+                      {p.n}
+                    </div>
+                  </div>
+
+                  {/* Glass card */}
+                  <div
+                    className="glass-panel relative overflow-hidden rounded-2xl p-8 transition duration-500"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, oklch(0.18 0.012 40 / 0.6), oklch(0.13 0.008 40 / 0.75))",
+                    }}
+                  >
+                    {/* Top copper accent */}
+                    <div
+                      className="absolute inset-x-0 top-0 h-px opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent, oklch(0.66 0.14 45 / 0.9), transparent)",
+                      }}
+                    />
+
+                    {/* Corner ornaments */}
+                    <div
+                      className="absolute left-3 top-3 h-4 w-4 border-l border-t opacity-40 transition duration-500 group-hover:opacity-100"
+                      style={{ borderColor: "var(--copper)" }}
+                    />
+                    <div
+                      className="absolute bottom-3 right-3 h-4 w-4 border-b border-r opacity-40 transition duration-500 group-hover:opacity-100"
+                      style={{ borderColor: "var(--copper)" }}
+                    />
+
+                    {/* Content */}
+                    <h3 className="mb-3 text-2xl transition duration-500 group-hover:text-foreground">
+                      {p.t}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{p.l}</p>
+
+                    {/* Hover copper wash */}
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100"
+                      style={{
+                        background:
+                          "radial-gradient(circle at 50% 0%, oklch(0.66 0.14 45 / 0.15), transparent 65%)",
+                      }}
+                    />
+                  </div>
                 </div>
-                <h3 className="mb-3 text-2xl">{p.t}</h3>
-                <p className="text-sm text-muted-foreground">{p.l}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
