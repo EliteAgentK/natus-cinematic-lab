@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail } from "lucide-react";
+import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail, Phone } from "lucide-react";
 import logoAsset from "../assets/natus-lab-logo.png.asset.json";
 import heroAsset from "../assets/hero-atmosphere.jpg.asset.json";
 import invesstem1 from "../assets/invesstem-1.png.asset.json";
@@ -11,6 +11,10 @@ import pitchpartners2 from "../assets/pitchpartners-2.png.asset.json";
 import invesmed1 from "../assets/invesmed-1.png.asset.json";
 import invesmed2 from "../assets/invesmed-2.png.asset.json";
 import invesmed3 from "../assets/invesmed-3.png.asset.json";
+import svcWebsites from "../assets/service-websites.jpg.asset.json";
+import svcPlatforms from "../assets/service-platforms.jpg.asset.json";
+import svcEcommerce from "../assets/service-ecommerce.jpg.asset.json";
+import svcApps from "../assets/service-apps.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: NatusLab,
@@ -31,8 +35,11 @@ const PROJECTS = [
     type: "E-Learning · Platform",
     line: "A vibrant STEM learning platform for independent learners, tutors and schools across Africa.",
     images: [invesstem1.url, invesstem2.url, invesstem3.url],
-    year: "2026",
+    year: "2027",
+    status: "In Progress · Launching 2027",
     href: "#",
+    live: false,
+    domain: "inves-stem.co",
   },
   {
     name: "Pitch Partners",
@@ -41,6 +48,8 @@ const PROJECTS = [
     images: [pitchpartners1.url, pitchpartners2.url],
     year: "2026",
     href: "https://pitchpartners.co.za",
+    live: true,
+    domain: "pitchpartners.co.za",
   },
   {
     name: "Invesmed",
@@ -49,11 +58,17 @@ const PROJECTS = [
     images: [invesmed1.url, invesmed2.url, invesmed3.url],
     year: "2026",
     href: "https://invesmed.co.za",
+    live: true,
+    domain: "invesmed.co.za",
   },
 ];
 
-const WHATSAPP_URL = "https://wa.me/10000000000";
-const EMAIL = "hello@natuslab.co";
+// WhatsApp: +27 66 235 7143 (SA)
+const WHATSAPP_URL = "https://wa.me/27662357143?text=Hi%20Natus%20Lab%20%E2%80%94%20I'd%20like%20to%20start%20a%20project.";
+const PHONE_TEL = "tel:+27716499093";
+const PHONE_DISPLAY = "+27 71 649 9093";
+const WHATSAPP_DISPLAY = "+27 66 235 7143";
+const EMAIL = "khumo.abraham@gmail.com";
 
 /* --------- Particle field: copper drift + parallax reactive --------- */
 function ParticleField() {
@@ -418,10 +433,10 @@ function Hero() {
             </span>
           </h1>
 
-          <p className="reveal mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A quiet studio designing websites, platforms, e-commerce and apps
-            for brands that refuse to look like anyone else. Born from nature.
-            Built for transformation.
+          <p className="reveal mt-8 max-w-xl text-base leading-relaxed text-foreground md:text-lg">
+            A quiet studio designing websites, SaaS platforms, e-commerce stores
+            and mobile apps for brands that refuse to look like anyone else.
+            Born from nature. Built for transformation.
           </p>
 
           <div className="reveal mt-10 flex flex-wrap items-center gap-4">
@@ -528,9 +543,9 @@ function Hero() {
 /* --------- Marquee capabilities --------- */
 function Marquee() {
   const items = [
-    "Brand Systems", "Editorial Websites", "SaaS Platforms", "E-Commerce",
-    "Native Apps", "Motion Design", "Web3 Interfaces", "Private Portals",
-    "AI Interfaces", "Design Systems",
+    "Editorial Websites", "SaaS Platforms", "E-Commerce Stores",
+    "Mobile Apps", "Motion Design", "Brand Systems",
+    "Private Portals", "AI Interfaces", "Design Systems",
   ];
   const row = [...items, ...items];
   return (
@@ -555,14 +570,217 @@ function Marquee() {
 }
 
 /* --------- Main page --------- */
+/* --------- Project row (refined, compact) --------- */
+function ProjectRow({
+  p,
+  index,
+}: {
+  p: (typeof PROJECTS)[number];
+  index: number;
+}) {
+  const [active, setActive] = useState(0);
+  const reversed = index % 2 === 1;
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  return (
+    <div
+      className={`reveal group grid grid-cols-1 items-center gap-10 lg:grid-cols-12 ${
+        reversed ? "lg:[&>*:first-child]:order-2" : ""
+      }`}
+    >
+      {/* Preview — compact, glass framed */}
+      <div className="lg:col-span-7">
+        <div
+          ref={frameRef}
+          onMouseMove={(e) => {
+            const r = frameRef.current?.getBoundingClientRect();
+            if (!r) return;
+            setTilt({
+              x: ((e.clientY - r.top) / r.height - 0.5) * -4,
+              y: ((e.clientX - r.left) / r.width - 0.5) * 6,
+            });
+          }}
+          onMouseLeave={() => setTilt({ x: 0, y: 0 })}
+          className="relative mx-auto w-full max-w-[560px]"
+          style={{ perspective: "1400px" }}
+        >
+          {/* Ambient copper bloom */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-8 opacity-60 blur-2xl transition duration-700 group-hover:opacity-100"
+            style={{
+              background:
+                "radial-gradient(circle at 30% 30%, oklch(0.66 0.14 45 / 0.28), transparent 60%), radial-gradient(circle at 80% 80%, oklch(0.48 0.09 50 / 0.25), transparent 65%)",
+            }}
+          />
+
+          <div
+            className="glass-panel relative overflow-hidden rounded-2xl p-3"
+            style={{
+              transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+              transformStyle: "preserve-3d",
+              transition: "transform 0.6s cubic-bezier(.2,.7,.2,1)",
+            }}
+          >
+            <div
+              className="overflow-hidden rounded-lg border shadow-[0_30px_60px_-25px_oklch(0_0_0/0.8)]"
+              style={{ borderColor: "oklch(0.48 0.09 50 / 0.4)" }}
+            >
+              {/* Browser chrome */}
+              <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
+                <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
+                <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
+                <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
+                <span className="ml-3 text-[10px] tracking-widest text-muted-foreground">
+                  {p.domain}
+                </span>
+                {p.live === false && (
+                  <span
+                    className="ml-auto flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[9px] uppercase tracking-[0.2em]"
+                    style={{
+                      borderColor: "oklch(0.66 0.14 45 / 0.55)",
+                      color: "var(--copper)",
+                      background: "oklch(0.1 0.008 40 / 0.7)",
+                    }}
+                  >
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{
+                        background: "var(--copper)",
+                        boxShadow: "0 0 10px var(--copper)",
+                        animation: "pulseGlow 1.8s ease-in-out infinite",
+                      }}
+                    />
+                    In Progress
+                  </span>
+                )}
+              </div>
+
+              {/* Cross-fade image stack */}
+              <div className="relative aspect-[16/10] w-full bg-background">
+                {p.images.map((src, idx) => (
+                  <img
+                    key={idx}
+                    src={src}
+                    alt={`${p.name} — ${idx + 1}`}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-700 ease-out"
+                    style={{ opacity: active === idx ? 1 : 0 }}
+                  />
+                ))}
+                {/* Copper sheen on hover */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 50% 60%, oklch(0.66 0.14 45 / 0.18), transparent 65%)",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Thumbnails */}
+          {p.images.length > 1 && (
+            <div className="mt-4 flex items-center justify-center gap-2">
+              {p.images.map((src, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onMouseEnter={() => setActive(idx)}
+                  onFocus={() => setActive(idx)}
+                  onClick={() => setActive(idx)}
+                  aria-label={`View ${p.name} shot ${idx + 1}`}
+                  className="relative h-12 w-20 overflow-hidden rounded-md border transition"
+                  style={{
+                    borderColor:
+                      active === idx
+                        ? "oklch(0.66 0.14 45 / 0.9)"
+                        : "oklch(0.48 0.09 50 / 0.35)",
+                    boxShadow:
+                      active === idx
+                        ? "0 0 20px -4px oklch(0.66 0.14 45 / 0.55)"
+                        : "none",
+                  }}
+                >
+                  <img
+                    src={src}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    className="block h-full w-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Copy */}
+      <div className="lg:col-span-5">
+        <div className="mb-4 flex items-center justify-between">
+          <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
+          <span className="label">{p.year}</span>
+        </div>
+        <h3 className="mb-4 text-3xl md:text-4xl">{p.name}</h3>
+        <p className="mb-6 text-sm leading-relaxed text-muted-foreground md:text-base">{p.line}</p>
+
+        {p.status && (
+          <div
+            className="mb-6 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.24em]"
+            style={{
+              borderColor: "oklch(0.66 0.14 45 / 0.55)",
+              color: "var(--copper)",
+              background: "oklch(0.12 0.008 40 / 0.6)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: "var(--copper)", boxShadow: "0 0 10px var(--copper)" }}
+            />
+            {p.status}
+          </div>
+        )}
+
+        {p.live ? (
+          <a
+            href={p.href}
+            target="_blank"
+            rel="noreferrer"
+            className="group/link inline-flex items-center gap-3 rounded-full border px-5 py-2.5 transition hover:-translate-y-0.5"
+            style={{
+              borderColor: "oklch(0.66 0.14 45 / 0.5)",
+              background: "oklch(0.1 0.008 40 / 0.5)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <span className="label" style={{ color: "var(--copper)" }}>Visit live site</span>
+            <ArrowUpRight
+              className="h-4 w-4 transition group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+              style={{ color: "var(--copper)" }}
+            />
+          </a>
+        ) : (
+          <span className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+            Preview by request
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function NatusLab() {
   useReveal();
 
   const services = [
-    { icon: Globe, title: "Websites", line: "Editorial, cinematic sites built to convert and endure." },
-    { icon: LayoutGrid, title: "Platforms", line: "Custom internal systems and client-facing platforms." },
-    { icon: ShoppingBag, title: "E-Commerce", line: "Boutique storefronts engineered for premium brands." },
-    { icon: Smartphone, title: "Apps", line: "Native-feel mobile and web apps with intent-first UX." },
+    { icon: Globe,      title: "Websites",         line: "Editorial, cinematic sites built to convert and endure.",   image: svcWebsites.url },
+    { icon: LayoutGrid, title: "SaaS Platforms",   line: "Custom internal systems and client-facing platforms.",       image: svcPlatforms.url },
+    { icon: ShoppingBag,title: "E-Commerce Stores",line: "Boutique storefronts engineered for premium brands.",        image: svcEcommerce.url },
+    { icon: Smartphone, title: "Mobile Apps",      line: "Native-feel mobile and web apps with intent-first UX.",      image: svcApps.url },
   ];
 
   const principles = [
@@ -592,16 +810,62 @@ function NatusLab() {
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map(({ icon: Icon, title, line }) => (
-              <div key={title} className="glass-panel reveal group relative rounded-2xl p-7">
-                <div
-                  className="mb-8 flex h-11 w-11 items-center justify-center rounded-full border"
-                  style={{ borderColor: "oklch(0.66 0.14 45 / 0.55)" }}
-                >
-                  <Icon className="h-5 w-5" strokeWidth={1.25} style={{ color: "var(--copper)" }} />
+            {services.map(({ icon: Icon, title, line, image }, idx) => (
+              <div
+                key={title}
+                className="glass-panel reveal group relative overflow-hidden rounded-2xl"
+                style={{ transitionDelay: `${idx * 80}ms` }}
+              >
+                {/* Ambient image layer */}
+                <div className="relative h-44 w-full overflow-hidden">
+                  <img
+                    src={image}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover opacity-70 transition duration-[1400ms] ease-out group-hover:scale-110 group-hover:opacity-100"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, oklch(0.11 0.008 40 / 0.15) 0%, oklch(0.13 0.008 40 / 0.55) 55%, oklch(0.15 0.008 40 / 0.95) 100%)",
+                    }}
+                  />
+                  {/* Sweep shimmer */}
+                  <div
+                    className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 opacity-0 transition duration-700 group-hover:left-full group-hover:opacity-100"
+                    style={{
+                      background:
+                        "linear-gradient(120deg, transparent 0%, oklch(1 0 0 / 0.18) 50%, transparent 100%)",
+                    }}
+                  />
                 </div>
-                <h3 className="mb-2 text-2xl">{title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{line}</p>
+
+                {/* Content */}
+                <div className="relative -mt-8 p-7">
+                  <div
+                    className="mb-6 flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-md"
+                    style={{
+                      borderColor: "oklch(0.66 0.14 45 / 0.7)",
+                      background: "oklch(0.1 0.008 40 / 0.75)",
+                      boxShadow: "0 8px 30px -10px oklch(0.66 0.14 45 / 0.6)",
+                    }}
+                  >
+                    <Icon className="h-5 w-5" strokeWidth={1.25} style={{ color: "var(--copper)" }} />
+                  </div>
+                  <h3 className="mb-2 text-2xl">{title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{line}</p>
+                </div>
+
+                {/* Hover copper glow */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 50% 0%, oklch(0.66 0.14 45 / 0.25), transparent 60%)",
+                  }}
+                />
               </div>
             ))}
           </div>
@@ -621,85 +885,10 @@ function NatusLab() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-24">
-            {PROJECTS.map((p, i) => {
-              const reversed = i % 2 === 1;
-              return (
-                <a
-                  key={p.name}
-                  href={p.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`reveal group grid grid-cols-1 items-center gap-10 lg:grid-cols-12 ${
-                    reversed ? "lg:[&>*:first-child]:order-2" : ""
-                  }`}
-                >
-                  {/* Image reel: primary + secondary tiles */}
-                  <div className="relative lg:col-span-8">
-                    <div
-                      className="relative overflow-hidden rounded-2xl border shadow-[0_40px_80px_-30px_oklch(0_0_0/0.8)] transition duration-700 group-hover:-translate-y-1"
-                      style={{ borderColor: "oklch(0.48 0.09 50 / 0.4)" }}
-                    >
-                      <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/70 px-3 py-2">
-                        <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
-                        <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
-                        <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
-                        <span className="ml-3 text-[10px] tracking-widest text-muted-foreground">
-                          {p.href.replace(/^https?:\/\//, "") || `${p.name.toLowerCase().replace(/\s+/g, "")}.co`}
-                        </span>
-                      </div>
-                      <img
-                        src={p.images[0]}
-                        alt={`${p.name} — ${p.type}`}
-                        loading={i === 0 ? "eager" : "lazy"}
-                        className="block w-full transition-transform duration-[1400ms] ease-out group-hover:scale-[1.02]"
-                      />
-                      <div
-                        className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
-                        style={{ background: "radial-gradient(circle at 50% 60%, oklch(0.66 0.14 45 / 0.18), transparent 65%)" }}
-                      />
-                    </div>
-
-                    {/* Secondary + tertiary thumbs */}
-                    {p.images.length > 1 && (
-                      <div className="mt-4 grid grid-cols-2 gap-4">
-                        {p.images.slice(1, 3).map((src, idx) => (
-                          <div
-                            key={idx}
-                            className="overflow-hidden rounded-xl border transition duration-700 group-hover:-translate-y-0.5"
-                            style={{ borderColor: "oklch(0.48 0.09 50 / 0.35)" }}
-                          >
-                            <img
-                              src={src}
-                              alt={`${p.name} detail ${idx + 2}`}
-                              loading="lazy"
-                              className="block h-full w-full object-cover"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Copy */}
-                  <div className="lg:col-span-4">
-                    <div className="mb-4 flex items-center justify-between">
-                      <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
-                      <span className="label">{p.year}</span>
-                    </div>
-                    <h3 className="mb-4 text-3xl md:text-4xl">{p.name}</h3>
-                    <p className="mb-8 text-sm leading-relaxed text-muted-foreground md:text-base">{p.line}</p>
-                    <div
-                      className="inline-flex items-center gap-3 rounded-full border px-5 py-2.5 transition group-hover:-translate-y-0.5"
-                      style={{ borderColor: "oklch(0.66 0.14 45 / 0.5)", background: "oklch(0.1 0.008 40 / 0.5)" }}
-                    >
-                      <span className="label" style={{ color: "var(--copper)" }}>Visit live site</span>
-                      <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" style={{ color: "var(--copper)" }} />
-                    </div>
-                  </div>
-                </a>
-              );
-            })}
+          <div className="flex flex-col gap-16">
+            {PROJECTS.map((p, i) => (
+              <ProjectRow key={p.name} p={p} index={i} />
+            ))}
           </div>
         </div>
       </section>
@@ -754,14 +943,34 @@ function NatusLab() {
               rel="noreferrer"
               className="btn-copper rounded-full px-8 py-4 text-sm uppercase tracking-[0.24em]"
             >
-              Start a Project
+              WhatsApp
+            </a>
+            <a
+              href={PHONE_TEL}
+              className="btn-ghost-copper rounded-full px-8 py-4 text-sm uppercase tracking-[0.24em]"
+            >
+              Call
             </a>
             <a
               href={`mailto:${EMAIL}`}
               className="btn-ghost-copper rounded-full px-8 py-4 text-sm uppercase tracking-[0.24em]"
             >
-              Email Instead
+              Email
             </a>
+          </div>
+          <div className="reveal mt-10 grid grid-cols-1 gap-3 text-xs text-muted-foreground sm:grid-cols-3">
+            <div>
+              <div className="label mb-1">WhatsApp</div>
+              <div className="text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{WHATSAPP_DISPLAY}</div>
+            </div>
+            <div>
+              <div className="label mb-1">Call</div>
+              <div className="text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{PHONE_DISPLAY}</div>
+            </div>
+            <div>
+              <div className="label mb-1">Email</div>
+              <div className="truncate text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{EMAIL}</div>
+            </div>
           </div>
         </div>
       </section>
@@ -785,6 +994,14 @@ function NatusLab() {
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
                 <path d="M20.52 3.48A11.86 11.86 0 0 0 12.05 0C5.5 0 .2 5.3.2 11.85c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.65 1.44h.01c6.55 0 11.85-5.3 11.85-11.85 0-3.17-1.23-6.15-3.4-8.43zM12.06 21.7h-.01a9.84 9.84 0 0 1-5.02-1.38l-.36-.21-3.8 1 1.02-3.7-.24-.38a9.85 9.85 0 1 1 18.3-5.19c0 5.44-4.43 9.86-9.89 9.86zm5.4-7.39c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37s-1.04 1.01-1.04 2.47c0 1.46 1.06 2.87 1.21 3.07.15.2 2.1 3.2 5.08 4.48.71.31 1.26.5 1.69.63.71.23 1.35.2 1.86.12.57-.08 1.75-.71 2-1.4.25-.68.25-1.27.17-1.4-.07-.13-.27-.2-.57-.35z"/>
               </svg>
+            </a>
+            <a
+              href={PHONE_TEL}
+              aria-label="Call"
+              className="transition hover:text-copper"
+              style={{ color: "var(--muted-foreground)" }}
+            >
+              <Phone className="h-5 w-5" strokeWidth={1.5} />
             </a>
             <a
               href={`mailto:${EMAIL}`}
