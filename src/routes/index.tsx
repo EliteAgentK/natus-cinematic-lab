@@ -416,7 +416,14 @@ function Marquee() {
           ))}
         </div>
       </div>
-      <style>{`@keyframes scroll-x { from { transform: translateX(0) } to { transform: translateX(-50%) } }`}</style>
+      <style>{`
+        @keyframes scroll-x { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+        @keyframes spinSlow { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+        @keyframes principleScan {
+          0% { transform: translateX(-100%) }
+          100% { transform: translateX(300%) }
+        }
+      `}</style>
     </section>
   );
 }
