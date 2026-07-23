@@ -263,92 +263,6 @@ function Nav() {
   );
 }
 
-/* --------- Device mockups (floating laptop + phone) --------- */
-function DeviceMockups() {
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      const el = wrapRef.current; if (!el) return;
-      const r = el.getBoundingClientRect();
-      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-      setTilt({ x: (e.clientY - cy) / 60, y: (e.clientX - cx) / 60 });
-    };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  return (
-    <div
-      ref={wrapRef}
-      className="relative hidden h-[520px] w-full lg:block"
-      style={{ perspective: "1400px" }}
-    >
-      {/* Laptop */}
-      <div
-        className="absolute right-2 top-16 w-[520px]"
-        style={{
-          transform: `rotateX(${8 - tilt.x}deg) rotateY(${-14 + tilt.y}deg)`,
-          transformStyle: "preserve-3d",
-          transition: "transform 0.6s cubic-bezier(.2,.7,.2,1)",
-          animation: "float 8s ease-in-out infinite",
-        }}
-      >
-        <div className="rounded-t-xl border border-border/60 bg-gradient-to-b from-[oklch(0.22_0.015_40)] to-[oklch(0.14_0.008_40)] p-2 shadow-[0_50px_100px_-20px_oklch(0_0_0/0.7),0_0_60px_-10px_oklch(0.66_0.14_45/0.25)]">
-          <div className="aspect-[16/10] overflow-hidden rounded-md bg-background">
-            <div className="flex h-full flex-col">
-              <div className="flex items-center gap-1.5 border-b border-border/40 bg-card/60 px-3 py-2">
-                <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.12_45)]" />
-                <span className="h-2 w-2 rounded-full bg-[oklch(0.5_0.06_60)]" />
-                <span className="h-2 w-2 rounded-full bg-[oklch(0.4_0.03_50)]" />
-                <span className="ml-3 text-[9px] tracking-widest text-muted-foreground">natuslab.co</span>
-              </div>
-              <div className="flex-1 p-5">
-                <div className="mb-3 h-2 w-16 rounded bg-copper/60" style={{ background: "var(--copper)" }} />
-                <div className="mb-2 h-4 w-3/5 rounded bg-foreground/80" />
-                <div className="mb-6 h-3 w-2/5 rounded bg-foreground/40" />
-                <div className="grid grid-cols-3 gap-2">
-                  {[0,1,2].map(i => (
-                    <div key={i} className="aspect-square rounded border border-border/40 bg-card/60" />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="mx-auto h-3 w-[105%] -translate-x-[2.5%] rounded-b-2xl bg-gradient-to-b from-[oklch(0.22_0.015_40)] to-[oklch(0.1_0.008_40)] shadow-inner" />
-      </div>
-
-      {/* Phone */}
-      <div
-        className="absolute bottom-0 left-4 w-[170px]"
-        style={{
-          transform: `rotateX(${-6 + tilt.x}deg) rotateY(${10 - tilt.y}deg) rotateZ(-6deg)`,
-          transformStyle: "preserve-3d",
-          transition: "transform 0.6s cubic-bezier(.2,.7,.2,1)",
-          animation: "float 6s ease-in-out infinite reverse",
-        }}
-      >
-        <div className="rounded-[2rem] border border-border/70 bg-gradient-to-b from-[oklch(0.2_0.015_40)] to-[oklch(0.1_0.008_40)] p-2 shadow-[0_40px_80px_-20px_oklch(0_0_0/0.7),0_0_40px_-10px_oklch(0.66_0.14_45/0.3)]">
-          <div className="aspect-[9/19] overflow-hidden rounded-[1.6rem] bg-background p-3">
-            <div className="mb-4 flex justify-center">
-              <div className="h-1 w-12 rounded-full bg-foreground/30" />
-            </div>
-            <div className="mb-2 h-3 w-16 rounded bg-foreground/80" />
-            <div className="mb-4 h-2 w-24 rounded bg-foreground/30" />
-            <div className="space-y-2">
-              {[0,1,2].map(i => (
-                <div key={i} className="h-10 rounded-md border border-border/40 bg-card/60" />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <style>{`@keyframes float { 0%,100% { translate: 0 0 } 50% { translate: 0 -12px } }`}</style>
-    </div>
-  );
-}
 
 /* --------- Reveal on scroll --------- */
 function useReveal() {
@@ -405,8 +319,8 @@ function Hero() {
         <ParticleField />
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 px-6 py-20 lg:grid-cols-[1.15fr_1fr]">
-        <div>
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center px-6 py-20">
+        <div className="mx-auto w-full max-w-3xl">
           <div
             className="reveal mb-8 inline-flex items-center gap-3 rounded-full border px-4 py-1.5"
             style={{ borderColor: "oklch(0.66 0.14 45 / 0.4)", background: "oklch(0.12 0.008 40 / 0.5)", backdropFilter: "blur(10px)" }}
@@ -461,133 +375,6 @@ function Hero() {
           </div>
         </div>
 
-        {/* Studio console: cinematic dev-themed visual */}
-        <div
-          className="relative mx-auto hidden aspect-[4/5] w-full max-w-md lg:block"
-          style={{ perspective: "1600px" }}
-        >
-          {/* Orbiting dotted rings echoing the logo */}
-          <div
-            className="absolute left-1/2 top-1/2 rounded-full"
-            style={{
-              width: "115%",
-              aspectRatio: "1",
-              border: "1px dashed oklch(0.66 0.14 45 / 0.28)",
-              transform: "translate(-50%, -50%)",
-              animation: "spinSlow 60s linear infinite",
-            }}
-          />
-          <div
-            className="absolute left-1/2 top-1/2 rounded-full"
-            style={{
-              width: "82%",
-              aspectRatio: "1",
-              border: "1px dashed oklch(0.82 0.13 70 / 0.22)",
-              transform: "translate(-50%, -50%)",
-              animation: "spinSlow 90s linear infinite reverse",
-            }}
-          />
-          {/* Copper glow core */}
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
-            style={{
-              width: "55%",
-              aspectRatio: "1",
-              background: "radial-gradient(circle, oklch(0.66 0.14 45 / 0.35), transparent 70%)",
-              animation: "pulseGlow 5s ease-in-out infinite",
-            }}
-          />
-
-          {/* Main IDE panel */}
-          <div
-            className="absolute left-0 top-4 w-[92%] overflow-hidden rounded-2xl border shadow-[0_60px_120px_-25px_oklch(0_0_0/0.75),0_0_80px_-10px_oklch(0.66_0.14_45/0.28)]"
-            style={{
-              borderColor: "oklch(0.66 0.14 45 / 0.45)",
-              background: "linear-gradient(160deg, oklch(0.11 0.008 40 / 0.92), oklch(0.08 0.006 40 / 0.95))",
-              backdropFilter: "blur(20px)",
-              transform: `rotateX(${8 - tilt.x}deg) rotateY(${-14 + tilt.y}deg)`,
-              transformStyle: "preserve-3d",
-              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
-              animation: "floatY 9s ease-in-out infinite",
-            }}
-          >
-            <div className="flex items-center gap-1.5 border-b px-4 py-2.5" style={{ borderColor: "oklch(0.48 0.09 50 / 0.3)", background: "oklch(0.09 0.006 40 / 0.7)" }}>
-              <span className="h-2.5 w-2.5 rounded-full" style={{ background: "oklch(0.62 0.14 45)" }} />
-              <span className="h-2.5 w-2.5 rounded-full" style={{ background: "oklch(0.55 0.09 60)" }} />
-              <span className="h-2.5 w-2.5 rounded-full" style={{ background: "oklch(0.4 0.03 50)" }} />
-              <span className="ml-4 text-[9px] tracking-[0.3em] uppercase text-muted-foreground">natus.studio · index.tsx</span>
-            </div>
-            <div className="relative p-5 text-[11px] leading-[1.9]" style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
-              {[
-                <><span style={{ color: "oklch(0.55 0.05 60)" }}>{"// built to matter."}</span></>,
-                <><span style={{ color: "oklch(0.62 0.14 45)" }}>const</span> <span style={{ color: "oklch(0.85 0.05 70)" }}>studio</span> = <span style={{ color: "oklch(0.62 0.14 45)" }}>createNatus</span>({"{"}</>,
-                <>  <span style={{ color: "oklch(0.82 0.13 70)" }}>craft</span>: <span style={{ color: "oklch(0.78 0.08 60)" }}>"private"</span>,</>,
-                <>  <span style={{ color: "oklch(0.82 0.13 70)" }}>tone</span>: <span style={{ color: "oklch(0.78 0.08 60)" }}>"cinematic"</span>,</>,
-                <>  <span style={{ color: "oklch(0.82 0.13 70)" }}>build</span>: [<span style={{ color: "oklch(0.78 0.08 60)" }}>"web"</span>, <span style={{ color: "oklch(0.78 0.08 60)" }}>"saas"</span>, <span style={{ color: "oklch(0.78 0.08 60)" }}>"apps"</span>],</>,
-                <>{"});"}</>,
-                <>&nbsp;</>,
-                <><span style={{ color: "oklch(0.62 0.14 45)" }}>await</span> <span style={{ color: "oklch(0.85 0.05 70)" }}>studio</span>.<span style={{ color: "oklch(0.82 0.13 70)" }}>ship</span>();</>,
-              ].map((c, i) => (
-                <div key={i} className="flex gap-4 opacity-0" style={{ animation: `codeIn 0.5s ease-out ${0.4 + i * 0.15}s forwards` }}>
-                  <span className="w-4 text-right" style={{ color: "oklch(0.4 0.03 50)" }}>{String(i + 1).padStart(2, "0")}</span>
-                  <span className="whitespace-pre" style={{ color: "oklch(0.88 0.02 60)" }}>{c}</span>
-                </div>
-              ))}
-              <div className="flex gap-4">
-                <span className="w-4" />
-                <span className="inline-block h-3 w-1.5" style={{ background: "var(--copper)", animation: "blink 1s steps(2) infinite", boxShadow: "0 0 10px var(--copper)" }} />
-              </div>
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background: "linear-gradient(180deg, transparent 0%, oklch(0.66 0.14 45 / 0.06) 50%, transparent 100%)",
-                  backgroundSize: "100% 200%",
-                  animation: "shimmer 6s ease-in-out infinite",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Terminal card */}
-          <div
-            className="absolute bottom-0 right-0 w-[58%] overflow-hidden rounded-xl border shadow-[0_40px_60px_-15px_oklch(0_0_0/0.8)]"
-            style={{
-              borderColor: "oklch(0.66 0.14 45 / 0.5)",
-              background: "oklch(0.07 0.005 40 / 0.95)",
-              backdropFilter: "blur(16px)",
-              transform: `rotateX(${-6 + tilt.x * 1.2}deg) rotateY(${-4 - tilt.y}deg) rotateZ(3deg)`,
-              transformStyle: "preserve-3d",
-              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
-              animation: "floatY 8s ease-in-out infinite",
-              animationDelay: "0.4s",
-            }}
-          >
-            <div className="border-b px-3 py-1.5 text-[8px] tracking-[0.3em] uppercase" style={{ borderColor: "oklch(0.48 0.09 50 / 0.3)", color: "oklch(0.55 0.05 60)" }}>
-              ~/natus — zsh
-            </div>
-            <div className="p-3 text-[10px] leading-[1.7]" style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
-              <div style={{ color: "oklch(0.82 0.13 70)" }}>› <span style={{ color: "oklch(0.88 0.02 60)" }}>natus deploy --prod</span></div>
-              <div style={{ color: "oklch(0.55 0.05 60)" }}>  ▸ compiling motion</div>
-              <div style={{ color: "oklch(0.55 0.05 60)" }}>  ▸ optimizing assets</div>
-              <div style={{ color: "oklch(0.62 0.14 45)" }}>  ✓ shipped in 3.2s</div>
-            </div>
-          </div>
-
-          {/* Floating stat chip */}
-          <div
-            className="absolute -left-2 top-[42%] rounded-full border px-3 py-1.5 backdrop-blur-md"
-            style={{
-              borderColor: "oklch(0.66 0.14 45 / 0.5)",
-              background: "oklch(0.09 0.006 40 / 0.8)",
-              animation: "floatY 6s ease-in-out infinite reverse",
-            }}
-          >
-            <div className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--copper)", boxShadow: "0 0 8px var(--copper)" }} />
-              <span className="text-[9px] uppercase tracking-[0.28em]" style={{ color: "oklch(0.85 0.05 70)" }}>Live · 60fps</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Scroll indicator */}
@@ -599,12 +386,7 @@ function Hero() {
       </div>
 
       <style>{`
-        @keyframes floatY { 0%,100% { translate: 0 0 } 50% { translate: 0 -14px } }
         @keyframes pulseGlow { 0%,100% { opacity: 0.55 } 50% { opacity: 0.9 } }
-        @keyframes spinSlow { to { transform: translate(-50%, -50%) rotate(360deg) } }
-        @keyframes codeIn { from { opacity: 0; transform: translateX(-8px) } to { opacity: 1; transform: translateX(0) } }
-        @keyframes blink { 50% { opacity: 0 } }
-        @keyframes shimmer { 0%,100% { background-position: 0 -100% } 50% { background-position: 0 100% } }
       `}</style>
     </section>
   );
