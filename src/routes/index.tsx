@@ -379,39 +379,10 @@ function NatusLab() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-[100svh] pt-32 pb-24">
-        <div className="absolute inset-0">
-          <ParticleField />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--background)_75%)]" />
-        </div>
+      <Hero />
 
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <div className="reveal label mb-8 text-copper" style={{ color: "var(--copper)" }}>
-              Natus Lab · Private Digital Studio
-            </div>
-            <h1 className="reveal text-5xl leading-[1.02] md:text-7xl lg:text-[5.5rem]">
-              Digital work,
-              <br />
-              <span style={{ color: "var(--copper)" }}>built to matter.</span>
-            </h1>
-            <p className="reveal mt-8 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
-              A private studio designing websites, platforms, e-commerce and apps
-              for brands that refuse to look like anyone else.
-            </p>
-            <div className="reveal mt-10 flex flex-wrap items-center gap-4">
-              <a href="#work" className="btn-copper rounded-full px-7 py-3.5 text-sm uppercase tracking-[0.22em]">
-                View Work
-              </a>
-              <a href="#contact" className="btn-ghost-copper rounded-full px-7 py-3.5 text-sm uppercase tracking-[0.22em]">
-                Start a Project
-              </a>
-            </div>
-          </div>
-
-          <DeviceMockups />
-        </div>
-      </section>
+      {/* MARQUEE */}
+      <Marquee />
 
       {/* SERVICES */}
       <section id="services" className="relative py-28">
@@ -452,35 +423,44 @@ function NatusLab() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {PROJECTS.map((p) => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {PROJECTS.map((p, i) => (
               <a
                 key={p.name}
                 href={p.href}
                 target="_blank"
                 rel="noreferrer"
-                className="glass-panel reveal group relative flex flex-col justify-between rounded-2xl p-8"
+                className="reveal group relative block overflow-hidden rounded-2xl border transition duration-500 hover:-translate-y-1"
+                style={{ borderColor: "oklch(0.48 0.09 50 / 0.4)" }}
               >
-                <div className="mb-10 flex items-start justify-between">
-                  <div
-                    className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-xl border"
-                    style={{ borderColor: "oklch(0.48 0.09 50 / 0.45)", background: "oklch(0.1 0.008 40 / 0.6)" }}
-                  >
-                    <img src={p.logo} alt={`${p.name} logo`} className="h-full w-full object-cover" />
-                  </div>
-                  <ArrowUpRight
-                    className="h-5 w-5 translate-x-0 translate-y-0 transition group-hover:-translate-y-1 group-hover:translate-x-1"
-                    style={{ color: "var(--copper)" }}
+                <div className="relative aspect-[4/3] overflow-hidden bg-black">
+                  <img
+                    src={p.image}
+                    alt={`${p.name} — ${p.type}`}
+                    loading={i < 2 ? "eager" : "lazy"}
+                    className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
                   />
-                </div>
-                <div>
-                  <div className="mb-1 flex items-center gap-3">
-                    <h3 className="text-2xl md:text-3xl">{p.name}</h3>
-                    <span className="label" style={{ letterSpacing: "0.22em" }}>{p.type}</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                  <div
+                    className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
+                    style={{ background: "radial-gradient(circle at 50% 65%, oklch(0.66 0.14 45 / 0.22), transparent 65%)" }}
+                  />
+                  <div
+                    className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition group-hover:-translate-y-1 group-hover:translate-x-1"
+                    style={{ borderColor: "oklch(0.66 0.14 45 / 0.6)", background: "oklch(0.1 0.008 40 / 0.55)" }}
+                  >
+                    <ArrowUpRight className="h-4 w-4" style={{ color: "var(--copper)" }} />
                   </div>
+                </div>
+                <div className="relative px-7 pb-8 pt-6">
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
+                    <span className="label">{p.year}</span>
+                  </div>
+                  <h3 className="mb-2 text-2xl md:text-3xl">{p.name}</h3>
                   <p className="mb-4 text-sm text-muted-foreground">{p.line}</p>
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground/70">
-                    Click logo to visit live site
+                  <p className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground/60">
+                    Visit live site →
                   </p>
                 </div>
               </a>
