@@ -2,6 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Globe, LayoutGrid, ShoppingBag, Smartphone, ArrowUpRight, Mail } from "lucide-react";
 import logoAsset from "../assets/natus-lab-logo.png.asset.json";
+import heroAsset from "../assets/hero-atmosphere.jpg.asset.json";
+import project1Asset from "../assets/project-1.jpg.asset.json";
+import project2Asset from "../assets/project-2.jpg.asset.json";
+import project3Asset from "../assets/project-3.jpg.asset.json";
+import project4Asset from "../assets/project-4.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: NatusLab,
@@ -19,30 +24,34 @@ export const Route = createFileRoute("/")({
 const PROJECTS = [
   {
     name: "Aurelia Studio",
-    type: "Website",
-    line: "Cinematic single-page identity for a boutique creative studio.",
-    logo: "https://api.dicebear.com/9.x/initials/svg?seed=Aurelia&backgroundType=gradientLinear&backgroundColor=1a1310,2a1b13&textColor=d99a5b&fontWeight=500",
+    type: "Fashion · Website",
+    line: "Cinematic seasonal identity for a boutique fashion house.",
+    image: project1Asset.url,
+    year: "2025",
     href: "#",
   },
   {
-    name: "Meridian Group",
-    type: "Corporate Platform",
-    line: "Internal operations platform for a multi-entity holding.",
-    logo: "https://api.dicebear.com/9.x/initials/svg?seed=Meridian&backgroundType=gradientLinear&backgroundColor=1a1310,2a1b13&textColor=d99a5b&fontWeight=500",
+    name: "Aurelian Capital",
+    type: "Finance · Platform",
+    line: "Private portfolio platform for a global capital firm.",
+    image: project2Asset.url,
+    year: "2025",
     href: "#",
   },
   {
-    name: "Noir Atelier",
-    type: "E-Commerce",
-    line: "Made-to-order boutique with a private client portal.",
-    logo: "https://api.dicebear.com/9.x/initials/svg?seed=Noir&backgroundType=gradientLinear&backgroundColor=1a1310,2a1b13&textColor=d99a5b&fontWeight=500",
+    name: "Velmora",
+    type: "Luxury · E-Commerce",
+    line: "Limited-edition timepieces sold through a private storefront.",
+    image: project3Asset.url,
+    year: "2024",
     href: "#",
   },
   {
-    name: "Kite & Co.",
-    type: "App",
-    line: "Native mobile app for a members-only concierge service.",
-    logo: "https://api.dicebear.com/9.x/initials/svg?seed=Kite&backgroundType=gradientLinear&backgroundColor=1a1310,2a1b13&textColor=d99a5b&fontWeight=500",
+    name: "Luxe Concierge",
+    type: "Hospitality · App",
+    line: "Members-only mobile concierge for an invitation-only club.",
+    image: project4Asset.url,
+    year: "2024",
     href: "#",
   },
 ];
@@ -347,6 +356,172 @@ function useReveal() {
   }, []);
 }
 
+/* --------- Hero --------- */
+function Hero() {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const on = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      setTilt({ x: (e.clientY - cy) / 90, y: (e.clientX - cx) / 90 });
+    };
+    window.addEventListener("mousemove", on);
+    return () => window.removeEventListener("mousemove", on);
+  }, []);
+
+  return (
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-24">
+      {/* Layered atmosphere: hero image + particles + radial masks */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${heroAsset.url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "saturate(1.05)",
+            transform: `translate3d(${tilt.y * 0.6}px, ${tilt.x * 0.6}px, 0) scale(1.06)`,
+            transition: "transform 0.9s cubic-bezier(.2,.7,.2,1)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at 60% 50%, transparent 0%, oklch(0.09 0.006 40 / 0.55) 45%, var(--background) 82%)",
+          }}
+        />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+        <ParticleField />
+      </div>
+
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 px-6 py-20 lg:grid-cols-[1.15fr_1fr]">
+        <div>
+          <div
+            className="reveal mb-8 inline-flex items-center gap-3 rounded-full border px-4 py-1.5"
+            style={{ borderColor: "oklch(0.66 0.14 45 / 0.4)", background: "oklch(0.12 0.008 40 / 0.5)", backdropFilter: "blur(10px)" }}
+          >
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--copper)", boxShadow: "0 0 12px var(--copper)" }} />
+            <span className="label" style={{ letterSpacing: "0.28em", color: "var(--foreground)" }}>
+              Private Digital Studio
+            </span>
+          </div>
+
+          <h1 className="reveal text-[3.4rem] leading-[0.98] tracking-tight md:text-[5rem] lg:text-[6rem]">
+            Digital work,
+            <br />
+            <span
+              className="italic"
+              style={{
+                background: "linear-gradient(120deg, oklch(0.62 0.14 45), oklch(0.82 0.13 70) 55%, oklch(0.6 0.13 42))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              built to matter.
+            </span>
+          </h1>
+
+          <p className="reveal mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            A quiet studio designing websites, platforms, e-commerce and apps
+            for brands that refuse to look like anyone else. Born from nature.
+            Built for transformation.
+          </p>
+
+          <div className="reveal mt-10 flex flex-wrap items-center gap-4">
+            <a href="#work" className="btn-copper rounded-full px-8 py-4 text-xs uppercase tracking-[0.28em]">
+              View Work
+            </a>
+            <a href="#contact" className="btn-ghost-copper rounded-full px-8 py-4 text-xs uppercase tracking-[0.28em]">
+              Start a Project
+            </a>
+          </div>
+
+          <div className="reveal mt-14 grid max-w-md grid-cols-3 gap-6 border-t pt-6" style={{ borderColor: "oklch(0.48 0.09 50 / 0.3)" }}>
+            {[
+              ["By", "Invitation"],
+              ["Est.", "MMXXIV"],
+              ["Craft", "Studio"],
+            ].map(([k, v]) => (
+              <div key={k}>
+                <div className="label mb-1">{k}</div>
+                <div className="text-sm text-foreground" style={{ fontFamily: "var(--font-serif)", fontSize: "1.1rem" }}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Logo mark, softly floating */}
+        <div
+          className="relative mx-auto hidden aspect-square w-full max-w-md items-center justify-center lg:flex"
+          style={{ perspective: "1200px" }}
+        >
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: "radial-gradient(circle, oklch(0.66 0.14 45 / 0.25), transparent 65%)",
+              filter: "blur(30px)",
+              animation: "pulseGlow 6s ease-in-out infinite",
+            }}
+          />
+          <img
+            src={logoAsset.url}
+            alt="Natus Lab mark"
+            className="relative z-10 w-4/5 drop-shadow-[0_20px_60px_oklch(0.66_0.14_45_/_0.35)]"
+            style={{
+              transform: `rotateX(${-tilt.x * 0.3}deg) rotateY(${tilt.y * 0.3}deg)`,
+              transition: "transform 0.8s cubic-bezier(.2,.7,.2,1)",
+              animation: "floatY 8s ease-in-out infinite",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-8 flex justify-center">
+        <div className="flex flex-col items-center gap-3 opacity-70">
+          <span className="label" style={{ fontSize: "0.6rem" }}>Scroll</span>
+          <div className="h-10 w-px" style={{ background: "linear-gradient(to bottom, var(--copper), transparent)" }} />
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes floatY { 0%,100% { translate: 0 0 } 50% { translate: 0 -14px } }
+        @keyframes pulseGlow { 0%,100% { opacity: 0.55 } 50% { opacity: 0.9 } }
+      `}</style>
+    </section>
+  );
+}
+
+/* --------- Marquee capabilities --------- */
+function Marquee() {
+  const items = [
+    "Brand Systems", "Editorial Websites", "SaaS Platforms", "E-Commerce",
+    "Native Apps", "Motion Design", "Web3 Interfaces", "Private Portals",
+    "AI Interfaces", "Design Systems",
+  ];
+  const row = [...items, ...items];
+  return (
+    <section aria-hidden className="relative border-y py-8" style={{ borderColor: "oklch(0.48 0.09 50 / 0.28)", background: "oklch(0.11 0.008 40 / 0.6)" }}>
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-background to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-background to-transparent" />
+      <div className="overflow-hidden">
+        <div className="flex gap-14" style={{ animation: "scroll-x 40s linear infinite", width: "max-content" }}>
+          {row.map((w, i) => (
+            <div key={i} className="flex items-center gap-14">
+              <span className="text-2xl md:text-3xl" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "oklch(0.75 0.02 60)" }}>
+                {w}
+              </span>
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--copper)" }} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@keyframes scroll-x { from { transform: translateX(0) } to { transform: translateX(-50%) } }`}</style>
+    </section>
+  );
+}
+
 /* --------- Main page --------- */
 function NatusLab() {
   useReveal();
@@ -370,39 +545,10 @@ function NatusLab() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-[100svh] pt-32 pb-24">
-        <div className="absolute inset-0">
-          <ParticleField />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--background)_75%)]" />
-        </div>
+      <Hero />
 
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <div className="reveal label mb-8 text-copper" style={{ color: "var(--copper)" }}>
-              Natus Lab · Private Digital Studio
-            </div>
-            <h1 className="reveal text-5xl leading-[1.02] md:text-7xl lg:text-[5.5rem]">
-              Digital work,
-              <br />
-              <span style={{ color: "var(--copper)" }}>built to matter.</span>
-            </h1>
-            <p className="reveal mt-8 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
-              A private studio designing websites, platforms, e-commerce and apps
-              for brands that refuse to look like anyone else.
-            </p>
-            <div className="reveal mt-10 flex flex-wrap items-center gap-4">
-              <a href="#work" className="btn-copper rounded-full px-7 py-3.5 text-sm uppercase tracking-[0.22em]">
-                View Work
-              </a>
-              <a href="#contact" className="btn-ghost-copper rounded-full px-7 py-3.5 text-sm uppercase tracking-[0.22em]">
-                Start a Project
-              </a>
-            </div>
-          </div>
-
-          <DeviceMockups />
-        </div>
-      </section>
+      {/* MARQUEE */}
+      <Marquee />
 
       {/* SERVICES */}
       <section id="services" className="relative py-28">
@@ -443,35 +589,44 @@ function NatusLab() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {PROJECTS.map((p) => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {PROJECTS.map((p, i) => (
               <a
                 key={p.name}
                 href={p.href}
                 target="_blank"
                 rel="noreferrer"
-                className="glass-panel reveal group relative flex flex-col justify-between rounded-2xl p-8"
+                className="reveal group relative block overflow-hidden rounded-2xl border transition duration-500 hover:-translate-y-1"
+                style={{ borderColor: "oklch(0.48 0.09 50 / 0.4)" }}
               >
-                <div className="mb-10 flex items-start justify-between">
-                  <div
-                    className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-xl border"
-                    style={{ borderColor: "oklch(0.48 0.09 50 / 0.45)", background: "oklch(0.1 0.008 40 / 0.6)" }}
-                  >
-                    <img src={p.logo} alt={`${p.name} logo`} className="h-full w-full object-cover" />
-                  </div>
-                  <ArrowUpRight
-                    className="h-5 w-5 translate-x-0 translate-y-0 transition group-hover:-translate-y-1 group-hover:translate-x-1"
-                    style={{ color: "var(--copper)" }}
+                <div className="relative aspect-[4/3] overflow-hidden bg-black">
+                  <img
+                    src={p.image}
+                    alt={`${p.name} — ${p.type}`}
+                    loading={i < 2 ? "eager" : "lazy"}
+                    className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
                   />
-                </div>
-                <div>
-                  <div className="mb-1 flex items-center gap-3">
-                    <h3 className="text-2xl md:text-3xl">{p.name}</h3>
-                    <span className="label" style={{ letterSpacing: "0.22em" }}>{p.type}</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                  <div
+                    className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
+                    style={{ background: "radial-gradient(circle at 50% 65%, oklch(0.66 0.14 45 / 0.22), transparent 65%)" }}
+                  />
+                  <div
+                    className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition group-hover:-translate-y-1 group-hover:translate-x-1"
+                    style={{ borderColor: "oklch(0.66 0.14 45 / 0.6)", background: "oklch(0.1 0.008 40 / 0.55)" }}
+                  >
+                    <ArrowUpRight className="h-4 w-4" style={{ color: "var(--copper)" }} />
                   </div>
+                </div>
+                <div className="relative px-7 pb-8 pt-6">
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="label" style={{ color: "var(--copper)" }}>{p.type}</span>
+                    <span className="label">{p.year}</span>
+                  </div>
+                  <h3 className="mb-2 text-2xl md:text-3xl">{p.name}</h3>
                   <p className="mb-4 text-sm text-muted-foreground">{p.line}</p>
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground/70">
-                    Click logo to visit live site
+                  <p className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground/60">
+                    Visit live site →
                   </p>
                 </div>
               </a>
