@@ -943,14 +943,34 @@ function NatusLab() {
               rel="noreferrer"
               className="btn-copper rounded-full px-8 py-4 text-sm uppercase tracking-[0.24em]"
             >
-              Start a Project
+              WhatsApp
+            </a>
+            <a
+              href={PHONE_TEL}
+              className="btn-ghost-copper rounded-full px-8 py-4 text-sm uppercase tracking-[0.24em]"
+            >
+              Call
             </a>
             <a
               href={`mailto:${EMAIL}`}
               className="btn-ghost-copper rounded-full px-8 py-4 text-sm uppercase tracking-[0.24em]"
             >
-              Email Instead
+              Email
             </a>
+          </div>
+          <div className="reveal mt-10 grid grid-cols-1 gap-3 text-xs text-muted-foreground sm:grid-cols-3">
+            <div>
+              <div className="label mb-1">WhatsApp</div>
+              <div className="text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{WHATSAPP_DISPLAY}</div>
+            </div>
+            <div>
+              <div className="label mb-1">Call</div>
+              <div className="text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{PHONE_DISPLAY}</div>
+            </div>
+            <div>
+              <div className="label mb-1">Email</div>
+              <div className="truncate text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{EMAIL}</div>
+            </div>
           </div>
         </div>
       </section>
@@ -974,6 +994,14 @@ function NatusLab() {
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
                 <path d="M20.52 3.48A11.86 11.86 0 0 0 12.05 0C5.5 0 .2 5.3.2 11.85c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.65 1.44h.01c6.55 0 11.85-5.3 11.85-11.85 0-3.17-1.23-6.15-3.4-8.43zM12.06 21.7h-.01a9.84 9.84 0 0 1-5.02-1.38l-.36-.21-3.8 1 1.02-3.7-.24-.38a9.85 9.85 0 1 1 18.3-5.19c0 5.44-4.43 9.86-9.89 9.86zm5.4-7.39c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37s-1.04 1.01-1.04 2.47c0 1.46 1.06 2.87 1.21 3.07.15.2 2.1 3.2 5.08 4.48.71.31 1.26.5 1.69.63.71.23 1.35.2 1.86.12.57-.08 1.75-.71 2-1.4.25-.68.25-1.27.17-1.4-.07-.13-.27-.2-.57-.35z"/>
               </svg>
+            </a>
+            <a
+              href={PHONE_TEL}
+              aria-label="Call"
+              className="transition hover:text-copper"
+              style={{ color: "var(--muted-foreground)" }}
+            >
+              <Phone className="h-5 w-5" strokeWidth={1.5} />
             </a>
             <a
               href={`mailto:${EMAIL}`}
