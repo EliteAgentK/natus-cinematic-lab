@@ -294,7 +294,7 @@ function Hero() {
   }, []);
 
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-16 md:pt-24">
+    <section className="relative flex min-h-[100svh] items-start overflow-hidden pt-24 md:items-center md:pt-24">
       {/* Layered atmosphere: hero image + particles + radial masks */}
       <div className="absolute inset-0">
         <div
@@ -319,7 +319,7 @@ function Hero() {
         <ParticleField />
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center px-6 py-10 md:py-20">
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center px-6 py-4 md:py-12">
         <div className="mx-auto w-full max-w-3xl">
           <div
             className="reveal mb-8 inline-flex items-center gap-3 rounded-full border px-4 py-1.5"
