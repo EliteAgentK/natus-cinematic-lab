@@ -628,7 +628,7 @@ function NatusLab() {
       <section id="services" className="relative py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="reveal mb-14 flex flex-col gap-4">
-            <span className="label" style={{ color: "var(--copper)" }}>What I Build</span>
+            <span className="label" style={{ color: "var(--copper)" }}>Services Provided</span>
             <h2 className="max-w-2xl text-4xl md:text-5xl">
               Four disciplines. One standard.
             </h2>
